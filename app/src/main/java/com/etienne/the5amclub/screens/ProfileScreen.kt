@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.etienne.the5amclub.R
+import com.etienne.the5amclub.UserModel
 
 //import com.example.bottomnavbar.R
 
