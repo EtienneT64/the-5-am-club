@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,10 +29,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.lang.Exception
 
-class LogIn : AppCompatActivity() {
+class LogIn : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var currentRealtimeUser: UserModel
 
@@ -48,38 +51,7 @@ class LogIn : AppCompatActivity() {
     }
 
 
-    private fun userLogIn(email: String, password: String){
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success
-                    Toast.makeText(
-                        baseContext,
-                        "Log in successful.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
 
-                    val user = Firebase.auth.currentUser
-                    val intent = Intent(this@LogIn, MainActivity::class.java)
-                    startActivity(intent)
-
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(
-                        baseContext,
-                        "Log in unsuccessful.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                }
-            }
-            .addOnFailureListener { exception -> //Shows the error message that caused the log in to break
-                Toast.makeText(
-                    baseContext,
-                    exception.localizedMessage,
-                    Toast.LENGTH_SHORT,
-                ).show()
-            }
-    }
     //Checks if there is a user signed in and returns an email if there is
     private fun checkUser(): String {
         val user = Firebase.auth.currentUser
@@ -105,6 +77,50 @@ class LogIn : AppCompatActivity() {
         var firstName by remember{
             mutableStateOf("")
         }
+
+        var loginState by remember {
+            mutableStateOf(false)
+        }
+
+
+        if(loginState) {
+            val user = Firebase.auth.currentUser
+            MainScreen(user)
+        }
+
+        fun userLogIn(email: String, password: String) {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success
+                        Toast.makeText(
+                            baseContext,
+                            "Log in successful.",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                        loginState = true
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(
+                            baseContext,
+                            "Log in unsuccessful.",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+
+                        loginState = false
+                        //throw Exception("User Log In Unsuccessful")
+                    }
+                }
+                .addOnFailureListener { exception -> //Shows the error message that caused the log in to break
+                    Toast.makeText(
+                        baseContext,
+                        exception.localizedMessage,
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+        }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -160,6 +176,7 @@ class LogIn : AppCompatActivity() {
             ) {
                 Button(onClick = {
                     //Add empty input validation
+
                     userLogIn(inputEmail, inputPassword)
                     inputEmail = ""
                     inputPassword = ""

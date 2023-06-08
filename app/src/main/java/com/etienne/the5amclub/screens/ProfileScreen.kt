@@ -1,6 +1,8 @@
 package com.etienne.the5amclub.screens
 
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,10 +37,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.etienne.the5amclub.R
 import com.etienne.the5amclub.UserModel
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 //import com.example.bottomnavbar.R
 
 
+@SuppressLint("InvalidColorHexValue")
 @Composable
 fun ProfileScreen() {
     var FullName by remember {
@@ -50,9 +57,22 @@ fun ProfileScreen() {
         mutableStateOf("")
     }
 
+    val context = LocalContext.current
+    FirebaseApp.initializeApp(context)
+
     val BMIBackground = Color(0xF5a5a3f)
     val PrimaryBlue = Color(0xFFF55555)
     val brush1 = Brush.linearGradient(listOf(Color.Gray, Color.Black))
+    val user = Firebase.auth.currentUser
+
+    var currentRealtimeUser = UserModel()
+    currentRealtimeUser = currentRealtimeUser.getUserObject(user?.email.toString())
+
+    FullName = currentRealtimeUser.userFullName.toString()
+
+    Email = currentRealtimeUser.userEmail.toString()
+
+    Status = currentRealtimeUser.userStatus.toString()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -168,17 +188,6 @@ fun ProfileScreen() {
 
         }
 
-
-        Button(onClick = {
-            var currentUser = UserModel("123","Tom Ford", "TomFord@gmail.com", userStatus = "Registered")
-            FullName = currentUser.userFullName.toString()
-
-            Email = currentUser.userEmail.toString()
-
-            Status = currentUser.userStatus.toString()
-        }) {
-            Text(text = "Show Name")
-        }
 
         Row() {
             Image(

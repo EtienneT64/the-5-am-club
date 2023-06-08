@@ -10,6 +10,7 @@ import com.etienne.the5amclub.screens.ProfileScreen
 import com.etienne.the5amclub.screens.HomeScreen
 import com.etienne.the5amclub.screens.UtilitiesScreen
 import com.etienne.the5amclub.screens.WorkoutsScreen
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 
 @Composable

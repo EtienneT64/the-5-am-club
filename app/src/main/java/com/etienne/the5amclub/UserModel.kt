@@ -1,6 +1,7 @@
 package com.etienne.the5amclub
 
 import android.util.Log
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -18,6 +19,7 @@ class UserModel(
     private lateinit var tempUser: UserModel
 
     fun getUserObject(email: String): UserModel = runBlocking{
+        FirebaseApp.initializeApp(this)
         var userObject = getCurrentRealtimeUser(email)
         return@runBlocking userObject
 
@@ -29,7 +31,12 @@ class UserModel(
             Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app")
                 .getReference("users")
 
+
+        val mappy = mapOf("one" to mapOf("two" to 2))
+
         val snapshot = userRef.get().await()
+
+        Log.d("UserModel", "User should be called")
 
         for (userSnap in snapshot.children) {
             tempUser = userSnap.getValue(UserModel::class.java)!!

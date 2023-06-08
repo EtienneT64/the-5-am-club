@@ -1,6 +1,7 @@
 package com.etienne.the5amclub
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -13,10 +14,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.etienne.the5amclub.BottomBarScreen
 import com.etienne.the5amclub.bottomnavbar.BottomNavGraph
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
+fun MainScreen(user: FirebaseUser?) {
+
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {BottomBar(navController = navController)}
@@ -38,14 +43,14 @@ fun BottomBar(navController: NavHostController) {
 
     BottomNavigation{
         screens.forEach{ screen ->
-            addItem(screen = screen, currentDestination = currentDestination , navController = navController)
+            AddItem(screen = screen, currentDestination = currentDestination , navController = navController)
         }
     }
 }
 
 
 @Composable
-fun RowScope.addItem(
+fun RowScope.AddItem(
     screen: BottomBarScreen,
     currentDestination: NavDestination?,
     navController: NavHostController
@@ -72,7 +77,11 @@ fun RowScope.addItem(
 @Composable
 @Preview
 fun MainScreenPreview() {
-    MainScreen()
+    //TODO Maybe remove this user code
+    val user : FirebaseUser?
+
+    user = null
+    MainScreen(user)
 }
 
 

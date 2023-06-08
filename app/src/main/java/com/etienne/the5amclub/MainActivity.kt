@@ -1,46 +1,49 @@
 package com.etienne.the5amclub
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.etienne.the5amclub.ui.theme.The5amclubTheme
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
+//TODO Add back BottomNavBarTheme
+//import com.etienne.the5amclub.ui.theme.BottomNavBarTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            The5amclubTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+
+        FirebaseApp.initializeApp(this)
+
+        //Testing Code START
+        Handler(Looper.getMainLooper()).postDelayed({
+            val user = Firebase.auth.currentUser
+
+            //If the user object is null, that means there is no current user, so we should point them to signup or login
+            if (user != null) {
+                Log.d("OnCreation", user.email.toString())
+            } else {
+                Log.d("Send User to LogIn", "There is no current user")
+                val intent = Intent(this@MainActivity, LogIn::class.java)
+                startActivity(intent)
             }
+        }, 2000)
+        //Testing Code END
+
+
+
+        setContent {
+            //TODO Add back BottomNavBarTheme
+            //BottomNavBarTheme {
+                Log.d("FirebaseInitialize","Just Before MainScreen Called")
+                val user = Firebase.auth.currentUser
+                MainScreen(user)
+            //}
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    The5amclubTheme {
-        Greeting("Android")
     }
 }
