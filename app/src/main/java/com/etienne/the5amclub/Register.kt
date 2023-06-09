@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -136,18 +139,47 @@ class Register : ComponentActivity() {
                 .offset(x = 0.dp, y = 100.dp),
         ) {
             Text(
-                text = "Create New Account",
+                text = "Create New",
                 fontSize = 50.sp,
+
                 modifier = Modifier.
-                        absolutePadding(75.dp)
+                        absolutePadding(20.dp)
 
             )
+
+            Text(
+                text = "Account" ,
+                        fontSize = 50.sp,
+
+            )
+
+            Text(text = "Already Registered?")
+
+
+            Button(onClick = {
+                inputEmail = ""
+                inputPassword = ""
+                inputFullName = ""
+                val intent = Intent(this@Register, LogIn::class.java)
+                startActivity(intent)
+
+            },
+                modifier = Modifier
+                    .size(width = 150.dp, height = 35.dp),
+
+                     colors = ButtonDefaults.buttonColors(Color.Black)
+
+
+            ) {
+                Text(text="LOG IN HERE")
+            }
         }
         Column(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxSize()
+
         ) {
 
             //Column to group the info buttons and labels
@@ -161,21 +193,30 @@ class Register : ComponentActivity() {
                     color = Color.Blue,
                     fontSize = 20.sp,
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
+                        .absolutePadding(45.dp)
+                        .padding(top = 160.dp)
+
                 )
                 OutlinedTextField(
                     value = inputFullName,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputFullName = text
+
                     }
                 )
                 Text(
                     text = "Email",
                     color = Color.Blue,
                     fontSize = 20.sp,
+                    modifier = Modifier
+                        .absolutePadding(45.dp)
                 )
                 OutlinedTextField(
                     value = inputEmail,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputEmail = text
                     }
@@ -184,9 +225,13 @@ class Register : ComponentActivity() {
                     text = "Password",
                     color = Color.Blue,
                     fontSize = 20.sp,
+                    modifier = Modifier
+                        .absolutePadding(45.dp)
                 )
                 OutlinedTextField(
                     value = inputPassword,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally),
                     onValueChange = {text ->
                         inputPassword = text
                     }
@@ -203,24 +248,18 @@ class Register : ComponentActivity() {
                     inputEmail = ""
                     inputPassword = ""
                     inputFullName = ""
-                }) {
-                    Text(text="Register")
+                },
+                        modifier = Modifier.size(width = 250.dp, height = 50.dp)
+
+                ) {
+                    Text(
+                        text="Sign Up",
+                        fontSize = 25.sp
+                    )
                 }
-                Button(onClick = {
-                    inputEmail = ""
-                    inputPassword = ""
-                    inputFullName = ""
-                    val intent = Intent(this@Register, LogIn::class.java)
-                    startActivity(intent)
-                }) {
-                    Text(text="Already have an account?")
-                }
-                Button(onClick = {
-                    //val intent = Intent(this@Register, BMICalculator::class.java)
-                    //startActivity(intent)
-                }) {
-                    Text(text="BMI Calculate")
-                }
+
+
+
             }
         }
 
