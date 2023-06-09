@@ -2,9 +2,6 @@ package com.etienne.the5amclub.screens
 
 
 import android.content.res.Configuration
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,21 +13,18 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import com.etienne.the5amclub.ui.theme.AppTheme
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UtilitiesScreen() {
     var inputAge by remember {
@@ -52,117 +47,76 @@ fun UtilitiesScreen() {
     var displayBMI by remember {
         mutableStateOf("")
     }
-    val BMIBackground = Color(0xff333333)
-    val InsideBox = Color(0xff0d0d0d)
-    val brush1 = Brush.linearGradient(listOf(Color.Blue, Color.Black))
-    val brush2 = Brush.linearGradient(listOf(Color.DarkGray, Color.Black))
-
-    Box(contentAlignment = Alignment.TopCenter,
-        modifier = Modifier.fillMaxSize())
-
-
-
+    Box(
+        contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize()
+    )
 
 
     {
 
-        Box(modifier = Modifier
-            .size(900.dp, 900.dp)
-            .background(brush2),
-            contentAlignment = Alignment.Center){
+        Box(
+            modifier = Modifier.size(900.dp, 900.dp), contentAlignment = Alignment.Center
+        ) {
 
-            Box(modifier = Modifier
-                .size(300.dp, 500.dp)
-                .background(Color.Black),
-                contentAlignment = Alignment.Center){
+            Box(
+                modifier = Modifier.size(300.dp, 500.dp), contentAlignment = Alignment.Center
+            ) {
 
                 Row() {
                     Text(
                         text = "Age",
                         fontSize = 40.sp,
-                        color = Color.White,
-
-
-
-
-                        )
-                  TextField(
+                    )
+                    TextField(
                         value = inputAge,
                         shape = CircleShape,
-                        onValueChange = {text -> inputAge = text},
+                        onValueChange = { text -> inputAge = text },
                         modifier = Modifier
                             .padding(bottom = 180.dp)
                             .absolutePadding(70.dp)
-                            .background(Color.White)
-
-
-
-
                     )
-
-
                 }
                 Row() {
                     Text(
                         text = "Height",
                         fontSize = 40.sp,
-                        color = Color.White
-
-
                     )
                     TextField(
                         value = inputHeight,
                         shape = CircleShape,
-                        onValueChange = { text -> inputHeight = text},
+                        onValueChange = { text -> inputHeight = text },
                         modifier = Modifier
                             .padding(bottom = 30.dp)
                             .absolutePadding(25.dp)
-                            .background(Color.White)
-
                     )
 
                 }
 
                 Row() {
                     Text(
-                        text = "Weight",
-                        fontSize = 40.sp,
-                        color = Color.White,
-                        modifier = Modifier
-                            .padding(top = 120.dp)
-
-
+                        text = "Weight", fontSize = 40.sp, modifier = Modifier.padding(top = 120.dp)
                     )
                     TextField(
                         value = inputWeight,
                         shape = CircleShape,
-                        onValueChange = {text -> inputWeight = text},
+                        onValueChange = { text -> inputWeight = text },
                         modifier = Modifier
                             .padding(top = 120.dp)
                             .absolutePadding(25.dp)
-                            .background(Color.White)
                     )
 
                 }
                 Row() {
                     Text(
-                        text = "BMI",
-                        fontSize = 40.sp,
-                        color = Color.White,
-                        modifier = Modifier
-                            .padding(top = 400.dp)
-
-
+                        text = "BMI", fontSize = 40.sp, modifier = Modifier.padding(top = 400.dp)
                     )
-                    TextField(value = displayBMI,
+                    TextField(
+                        value = displayBMI,
                         shape = CircleShape,
-                        onValueChange = {text -> displayBMI = text},
+                        onValueChange = { text -> displayBMI = text },
                         modifier = Modifier
                             .padding(top = 400.dp)
                             .absolutePadding(30.dp)
-                            .background(Color.White)
-
-
                     )
 
                 }
@@ -173,18 +127,12 @@ fun UtilitiesScreen() {
     }
 
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-
+        horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxSize()
 
     ) {
         Text(
             text = "BMI Calculator",
             fontSize = 50.sp,
-            color = Color.White
-
-
         )
 
 
@@ -194,9 +142,6 @@ fun UtilitiesScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 215.dp)
-
-
-
         )
 
         {
@@ -208,27 +153,19 @@ fun UtilitiesScreen() {
 
         ) {
             Button(
-                colors = ButtonDefaults.buttonColors( Color.Gray),
                 onClick = {
-                    displayBMI =
-                        BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
+                    displayBMI = BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
 
-                },
-                modifier = Modifier
+                }, modifier = Modifier
                     .offset(x = 0.dp, y = 20.dp)
                     .padding(top = 400.dp)
 
-
             ) {
                 Text(
-                    text = "CALCULATE BMI",
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
-
+                    text = "CALCULATE BMI", fontSize = 30.sp, fontWeight = FontWeight.Bold
 
                 )
             }
-
         }
     }
 }
@@ -238,9 +175,10 @@ private fun BMICalculate(weight: Double, height: Double): String {
     var strFormat = String.format("%.1f", result)
     return strFormat
 }
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
-    showBackground = true,
-    name = "Dark Mode")
+
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode"
+)
 @Composable
 fun UtilitiesScreenPreview() {
     AppTheme {

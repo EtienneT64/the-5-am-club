@@ -51,7 +51,13 @@ class Register : ComponentActivity() {
 
 
         setContent {
-            RegisterScreen()
+            AppTheme {
+                Surface {
+                    RegisterScreen()
+                }
+
+            }
+
         }
 
     }
@@ -131,27 +137,25 @@ class Register : ComponentActivity() {
         var inputPassword by remember {
             mutableStateOf("")
         }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .fillMaxWidth()
-                .offset(x = 0.dp, y = 100.dp),
+                .fillMaxSize()
+                .padding(top = 100.dp),
         ) {
             Text(
-                text = "Create New", fontSize = 50.sp,
-
-                modifier = Modifier.absolutePadding(20.dp)
-
+                text = "Create New",
+                fontSize = 50.sp,
+                modifier = Modifier.padding(20.dp)
             )
 
             Text(
                 text = "Account",
-                fontSize = 50.sp,
-
-                )
+                fontSize = 50.sp
+            )
 
             Text(text = "Already Registered?")
-
 
             Button(
                 onClick = {
@@ -160,22 +164,18 @@ class Register : ComponentActivity() {
                     inputFullName = ""
                     val intent = Intent(this@Register, LogIn::class.java)
                     startActivity(intent)
-
-                }, modifier = Modifier.size(width = 150.dp, height = 35.dp)
-
-
+                },
+                modifier = Modifier.size(width = 150.dp, height = 35.dp)
             ) {
                 Text(text = "LOG IN HERE")
             }
         }
+
         Column(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
-
         ) {
-
-            //Column to group the info buttons and labels
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -184,39 +184,41 @@ class Register : ComponentActivity() {
                 Text(
                     text = "Full Name",
                     fontSize = 20.sp,
-                    modifier = Modifier
-                        .absolutePadding(45.dp)
-                        .padding(top = 160.dp)
-
+                    modifier = Modifier.padding(start = 45.dp, top = 160.dp)
                 )
-                OutlinedTextField(value = inputFullName,
+                OutlinedTextField(
+                    value = inputFullName,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputFullName = text
-
-                    })
+                    }
+                )
                 Text(
                     text = "Email",
                     fontSize = 20.sp,
-                    modifier = Modifier.absolutePadding(45.dp)
+                    modifier = Modifier.padding(start = 45.dp)
                 )
-                OutlinedTextField(value = inputEmail,
+                OutlinedTextField(
+                    value = inputEmail,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputEmail = text
-                    })
+                    }
+                )
                 Text(
                     text = "Password",
                     fontSize = 20.sp,
-                    modifier = Modifier.absolutePadding(45.dp)
+                    modifier = Modifier.padding(start = 45.dp)
                 )
-                OutlinedTextField(value = inputPassword,
+                OutlinedTextField(
+                    value = inputPassword,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputPassword = text
-                    })
+                    }
+                )
             }
-            //Column to center the register button
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
@@ -227,23 +229,16 @@ class Register : ComponentActivity() {
                         inputEmail = ""
                         inputPassword = ""
                         inputFullName = ""
-                    }, modifier = Modifier.size(width = 250.dp, height = 50.dp)
-
+                    },
+                    modifier = Modifier.size(width = 250.dp, height = 50.dp)
                 ) {
-                    Text(
-                        text = "Sign Up", fontSize = 25.sp
-                    )
+                    Text(text = "Sign Up", fontSize = 25.sp)
                 }
-
-
             }
         }
-
     }
 
-    @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
-        showBackground = true,
-        name = "Dark Mode")
+    @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode")
     @Composable
     fun RegisterPreview() {
         AppTheme {

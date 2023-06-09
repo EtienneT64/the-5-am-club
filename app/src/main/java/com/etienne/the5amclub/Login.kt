@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Surface
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -47,7 +47,13 @@ class LogIn : ComponentActivity() {
         currentRealtimeUser = UserModel()
 
         setContent {
-            LogInScreen()
+            AppTheme {
+                Surface {
+                    LogInScreen()
+                }
+
+            }
+
         }
     }
 
@@ -118,136 +124,96 @@ class LogIn : ComponentActivity() {
                 }
         }
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .offset(x = 0.dp, y = 150.dp),
-        ) {
-            Text(
-                text = "Login",
-                fontSize = 50.sp,
-            )
-            Text(text = "Don't Have An Account?")
-
-
-            Button(
-                onClick = {
-                    inputEmail = ""
-                    inputPassword = ""
-                    Firebase.auth.signOut()
-                    val intent = Intent(this@LogIn, Register::class.java)
-                    startActivity(intent)
-                },
-                modifier = Modifier.size(width = 150.dp, height = 35.dp),
-
-                ) {
-                Text(text = "Sign Up Here")
-            }
-
-
-        }
-        Column(
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-
-            //Column to group the info buttons and labels
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp),
-            ) {
-                Text(
-                    text = "Email", fontSize = 20.sp, modifier = Modifier.absolutePadding(45.dp)
-
-                )
-                OutlinedTextField(value = inputEmail,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onValueChange = { text ->
-                        inputEmail = text
-                    })
-                Text(
-                    text = "Password", fontSize = 20.sp, modifier = Modifier.absolutePadding(45.dp)
-
-                )
-                OutlinedTextField(value = inputPassword,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onValueChange = { text ->
-                        inputPassword = text
-                    })
-            }
-            //Column to center the register button
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .offset(x = 0.dp, y = 150.dp),
             ) {
                 Text(
-
-                    text = "Please Login In To Continue", textDecoration = TextDecoration.Underline
-
+                    text = "Login",
+                    fontSize = 50.sp,
                 )
+                Text(text = "Don't Have An Account?")
 
 
                 Button(
                     onClick = {
-                        //Add empty input validation
-
-                        userLogIn(inputEmail, inputPassword)
                         inputEmail = ""
                         inputPassword = ""
-                    }, modifier = Modifier.size(width = 200.dp, height = 50.dp)
+                        Firebase.auth.signOut()
+                        val intent = Intent(this@LogIn, Register::class.java)
+                        startActivity(intent)
+                    },
+                    modifier = Modifier.size(width = 150.dp, height = 35.dp),
 
-                ) {
-                    Text(
-                        text = "Login", fontSize = 25.sp
-
-                    )
+                    ) {
+                    Text(text = "Sign Up Here")
                 }
 
-                /* Button(onClick = {
-                     currentEmail = checkUser()
-                     Log.d("FB", currentEmail)
-                     if (currentEmail != "No Current User") {
-                         currentRealtimeUser = currentRealtimeUser.getUserObject(currentEmail)
-                         if (currentRealtimeUser.userFullName != null) {
-                             firstName = currentRealtimeUser.userFullName.toString()
-                         }
-                         else{
-                             firstName = "The name is null."
-                             Log.d("Realtime User", "The thingy is blank")
-                         }
-                     }
 
-                 }) {
-                     Text(text="Check Current User")
-                 }
-                 Text(
-                     text = "Email: $currentEmail"
-                 )
-                 Text(
-                     text = "Name: $firstName"
-                 )*/
-
-                /*  Button(onClick = {
-                      currentEmail = checkUser()
-                      if (currentEmail != "No Current User") {
-                          currentRealtimeUser = currentRealtimeUser.getUserObject(currentEmail)
-                          if (currentRealtimeUser.userFullName != null) {
-                              firstName = currentRealtimeUser.userFullName.toString()
-                          }
-                          else{
-                              firstName = "The name is null."
-                              Log.d("Realtime User", "The thingy is blank")
-                          }
-                      }
-
-                  }) {
-                      Text(text="Test Callback")
-                  }*/
             }
-        }
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+
+                //Column to group the info buttons and labels
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(all = 10.dp),
+                ) {
+                    Text(
+                        text = "Email", fontSize = 20.sp, modifier = Modifier.absolutePadding(45.dp)
+
+                    )
+                    OutlinedTextField(value = inputEmail,
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        onValueChange = { text ->
+                            inputEmail = text
+                        })
+                    Text(
+                        text = "Password", fontSize = 20.sp, modifier = Modifier.absolutePadding(45.dp)
+
+                    )
+                    OutlinedTextField(value = inputPassword,
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        onValueChange = { text ->
+                            inputPassword = text
+                        })
+                }
+                //Column to center the register button
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+
+                        text = "Please Login In To Continue", textDecoration = TextDecoration.Underline
+
+                    )
+
+
+                    Button(
+                        onClick = {
+                            //Add empty input validation
+
+                            userLogIn(inputEmail, inputPassword)
+                            inputEmail = ""
+                            inputPassword = ""
+                        }, modifier = Modifier.size(width = 200.dp, height = 50.dp)
+
+                    ) {
+                        Text(
+                            text = "Login", fontSize = 25.sp
+
+                        )
+                    }
+                }
+            }
+
 
     }
 
