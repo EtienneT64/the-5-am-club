@@ -36,13 +36,12 @@ class MainActivity : ComponentActivity() {
         //Testing Code END
 
 
-
         setContent {
             //TODO Add back BottomNavBarTheme
             //BottomNavBarTheme {
-                Log.d("FirebaseInitialize","Just Before MainScreen Called")
-                val user = Firebase.auth.currentUser
-                MainScreen(user)
+            Log.d("FirebaseInitialize", "Just Before MainScreen Called")
+            val user = Firebase.auth.currentUser
+            MainScreen(user)
             //}
         }
     }

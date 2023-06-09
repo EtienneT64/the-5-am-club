@@ -1,7 +1,6 @@
 package com.etienne.the5amclub
 
 import android.util.Log
-import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -13,12 +12,12 @@ class UserModel(
     var userFullName: String? = null,
     var userEmail: String? = null,
     var userStarSign: String? = null,
-    var userStatus: String? =null,
-){
+    var userStatus: String? = null,
+) {
     private lateinit var userRef: DatabaseReference
     private lateinit var tempUser: UserModel
 
-    fun getUserObject(email: String): UserModel = runBlocking{
+    fun getUserObject(email: String): UserModel = runBlocking {
 //        FirebaseApp.initializeApp(this)
         var userObject = getCurrentRealtimeUser(email)
         return@runBlocking userObject

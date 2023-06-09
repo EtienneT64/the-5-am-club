@@ -1,6 +1,5 @@
 package com.etienne.the5amclub.screens
 
-
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -62,7 +61,7 @@ fun UtilitiesScreen() {
                 modifier = Modifier.size(300.dp, 500.dp), contentAlignment = Alignment.Center
             ) {
 
-                Row() {
+                Row {
                     Text(
                         text = "Age",
                         fontSize = 40.sp,
@@ -76,7 +75,7 @@ fun UtilitiesScreen() {
                             .absolutePadding(70.dp)
                     )
                 }
-                Row() {
+                Row {
                     Text(
                         text = "Height",
                         fontSize = 40.sp,
@@ -92,7 +91,7 @@ fun UtilitiesScreen() {
 
                 }
 
-                Row() {
+                Row {
                     Text(
                         text = "Weight", fontSize = 40.sp, modifier = Modifier.padding(top = 120.dp)
                     )
@@ -106,7 +105,7 @@ fun UtilitiesScreen() {
                     )
 
                 }
-                Row() {
+                Row {
                     Text(
                         text = "BMI", fontSize = 40.sp, modifier = Modifier.padding(top = 400.dp)
                     )
@@ -149,9 +148,7 @@ fun UtilitiesScreen() {
 
         }
 
-        Row(
-
-        ) {
+        Row {
             Button(
                 onClick = {
                     displayBMI = BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
@@ -171,7 +168,7 @@ fun UtilitiesScreen() {
 }
 
 private fun BMICalculate(weight: Double, height: Double): String {
-    var result = (weight / ((height / 100) * (height / 100)));
+    var result = (weight / ((height / 100) * (height / 100)))
     var strFormat = String.format("%.1f", result)
     return strFormat
 }
