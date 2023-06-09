@@ -243,7 +243,7 @@ class Register : ComponentActivity() {
 
     @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
         showBackground = true,
-        name = "Light Mode")
+        name = "Dark Mode")
     @Composable
     fun RegisterPreview() {
         AppTheme {

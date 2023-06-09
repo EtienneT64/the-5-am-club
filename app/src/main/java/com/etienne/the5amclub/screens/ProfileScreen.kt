@@ -2,6 +2,7 @@ package com.etienne.the5amclub.screens
 
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.material.Text
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
+import androidx.compose.material.Surface
 import androidx.compose.material.TextField
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.etienne.the5amclub.R
 import com.etienne.the5amclub.UserModel
+import com.etienne.the5amclub.ui.theme.AppTheme
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -181,7 +184,8 @@ fun ProfileScreen() {
                 shape = CircleShape,
                 /*colors = TextFieldDefaults.textFieldColors(Color.Cyan),*/
                 modifier =
-                Modifier.padding(bottom = 30.dp)
+                Modifier
+                    .padding(bottom = 30.dp)
                     .absolutePadding(15.dp)
 
             )
@@ -199,7 +203,7 @@ fun ProfileScreen() {
                 modifier = Modifier
 
                     .size(150.dp) // clip to the circle shape
-                    .border(10.dp,  Color.Gray)
+                    .border(10.dp, Color.Gray)
                     .offset(x = 0.dp, y = 0.dp)// add a border (optional)
                     .padding(top = 2.dp)
 
@@ -209,9 +213,14 @@ fun ProfileScreen() {
 
     }
 }
-
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode")
 @Composable
-@Preview
 fun ProfileScreenPreview() {
-    ProfileScreen()
+    AppTheme {
+        Surface() {
+            ProfileScreen()
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.etienne.the5amclub
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
@@ -14,6 +15,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.etienne.the5amclub.BottomBarScreen
 import com.etienne.the5amclub.bottomnavbar.BottomNavGraph
+import com.etienne.the5amclub.ui.theme.AppTheme
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -73,15 +75,21 @@ fun RowScope.AddItem(
   )
 
 }
-
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode")
 @Composable
-@Preview
 fun MainScreenPreview() {
     //TODO Maybe remove this user code
     val user : FirebaseUser?
 
     user = null
-    MainScreen(user)
+    AppTheme {
+        Surface {
+            MainScreen(user)
+        }
+    }
+
 }
 
 

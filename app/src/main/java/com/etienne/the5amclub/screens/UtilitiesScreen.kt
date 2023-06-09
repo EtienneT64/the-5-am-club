@@ -1,6 +1,7 @@
 package com.etienne.the5amclub.screens
 
 
+import android.content.res.Configuration
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.background
@@ -19,6 +20,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.getValue
@@ -33,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.etienne.the5amclub.ui.theme.AppTheme
 
 
 @Composable
@@ -69,7 +72,7 @@ fun UtilitiesScreen() {
             contentAlignment = Alignment.Center){
 
             Box(modifier = Modifier
-                .size(300.dp,500.dp)
+                .size(300.dp, 500.dp)
                 .background(Color.Black),
                 contentAlignment = Alignment.Center){
 
@@ -211,7 +214,8 @@ fun UtilitiesScreen() {
                         BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
 
                 },
-                modifier = Modifier.offset(x = 0.dp, y = 20.dp)
+                modifier = Modifier
+                    .offset(x = 0.dp, y = 20.dp)
                     .padding(top = 400.dp)
 
 
@@ -234,8 +238,15 @@ private fun BMICalculate(weight: Double, height: Double): String {
     var strFormat = String.format("%.1f", result)
     return strFormat
 }
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode")
 @Composable
-@Preview
 fun UtilitiesScreenPreview() {
-    UtilitiesScreen()
+    AppTheme {
+        Surface {
+            UtilitiesScreen()
+        }
+    }
+
 }

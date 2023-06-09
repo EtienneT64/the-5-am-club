@@ -1,6 +1,8 @@
 package com.etienne.the5amclub.bottomnavbar
 
+import android.content.res.Configuration
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -14,6 +16,7 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 
 @Composable
+
 fun BottomNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
