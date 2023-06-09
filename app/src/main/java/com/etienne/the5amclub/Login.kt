@@ -9,11 +9,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -25,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -128,9 +132,28 @@ class LogIn : ComponentActivity() {
                 .offset(x = 0.dp, y = 150.dp),
         ) {
             Text(
-                text = "Log In",
+                text = "Login",
                 fontSize = 50.sp,
             )
+            Text(text = "Don't Have An Account?")
+
+
+            Button(onClick = {
+                inputEmail = ""
+                inputPassword = ""
+                Firebase.auth.signOut()
+                val intent = Intent(this@LogIn, Register::class.java)
+                startActivity(intent)
+            },
+                    modifier = Modifier
+                    .size(width = 150.dp, height = 35.dp),
+                    colors = ButtonDefaults.buttonColors(Color.Black)
+
+            ) {
+                Text(text="Sign Up Here")
+            }
+
+
         }
         Column(
             horizontalAlignment = Alignment.Start,
@@ -149,9 +172,14 @@ class LogIn : ComponentActivity() {
                     text = "Email",
                     color = Color.Blue,
                     fontSize = 20.sp,
+                    modifier = Modifier
+                        .absolutePadding(45.dp)
+
                 )
                 OutlinedTextField(
                     value = inputEmail,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputEmail = text
                     }
@@ -160,9 +188,14 @@ class LogIn : ComponentActivity() {
                     text = "Password",
                     color = Color.Blue,
                     fontSize = 20.sp,
+                    modifier = Modifier
+                        .absolutePadding(45.dp)
+
                 )
                 OutlinedTextField(
                     value = inputPassword,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputPassword = text
                     }
@@ -174,16 +207,31 @@ class LogIn : ComponentActivity() {
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
+                Text(
+
+                    text = "Please Login In To Continue",
+                    textDecoration = TextDecoration.Underline
+
+                )
+
+
                 Button(onClick = {
                     //Add empty input validation
 
                     userLogIn(inputEmail, inputPassword)
                     inputEmail = ""
                     inputPassword = ""
-                }) {
-                    Text(text="Log In")
+                },
+                    modifier = Modifier.size(width = 200.dp, height = 50.dp)
+
+                ) {
+                    Text(text="Login",
+                        fontSize = 25.sp
+
+                    )
                 }
-                Button(onClick = {
+
+               /* Button(onClick = {
                     currentEmail = checkUser()
                     Log.d("FB", currentEmail)
                     if (currentEmail != "No Current User") {
@@ -205,17 +253,9 @@ class LogIn : ComponentActivity() {
                 )
                 Text(
                     text = "Name: $firstName"
-                )
-                Button(onClick = {
-                    inputEmail = ""
-                    inputPassword = ""
-                    Firebase.auth.signOut()
-                    val intent = Intent(this@LogIn, Register::class.java)
-                    startActivity(intent)
-                }) {
-                    Text(text="Sign Up")
-                }
-                Button(onClick = {
+                )*/
+
+              /*  Button(onClick = {
                     currentEmail = checkUser()
                     if (currentEmail != "No Current User") {
                         currentRealtimeUser = currentRealtimeUser.getUserObject(currentEmail)
@@ -230,7 +270,7 @@ class LogIn : ComponentActivity() {
 
                 }) {
                     Text(text="Test Callback")
-                }
+                }*/
             }
         }
 
