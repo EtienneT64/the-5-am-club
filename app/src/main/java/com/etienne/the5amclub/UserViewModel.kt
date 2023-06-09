@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -20,7 +21,6 @@ class UserViewModel(): ViewModel() {
 
     init{
         getUser()
-        Log.d("Viewmodel Init", "On Viewmodel init")
     }
 
     private fun getUser(){
