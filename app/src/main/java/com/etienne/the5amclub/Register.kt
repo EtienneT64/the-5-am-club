@@ -7,7 +7,9 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -134,8 +136,11 @@ class Register : ComponentActivity() {
                 .offset(x = 0.dp, y = 100.dp),
         ) {
             Text(
-                text = "Sign Up",
+                text = "Create New Account",
                 fontSize = 50.sp,
+                modifier = Modifier.
+                        absolutePadding(75.dp)
+
             )
         }
         Column(
@@ -152,9 +157,11 @@ class Register : ComponentActivity() {
                     .padding(all = 10.dp)
             ) {
                 Text(
-                    text = "First Name",
+                    text = "Full Name",
                     color = Color.Blue,
                     fontSize = 20.sp,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
                 )
                 OutlinedTextField(
                     value = inputFullName,
