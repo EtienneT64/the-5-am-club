@@ -187,7 +187,7 @@ class LogIn : ComponentActivity() {
                     currentEmail = checkUser()
                     Log.d("FB", currentEmail)
                     if (currentEmail != "No Current User") {
-                        currentRealtimeUser = currentRealtimeUser.getUserObject(currentEmail)
+                        //currentRealtimeUser = currentRealtimeUser.getUserObject()
                         if (currentRealtimeUser.userFullName != null) {
                             firstName = currentRealtimeUser.userFullName.toString()
                         }
@@ -218,7 +218,7 @@ class LogIn : ComponentActivity() {
                 Button(onClick = {
                     currentEmail = checkUser()
                     if (currentEmail != "No Current User") {
-                        currentRealtimeUser = currentRealtimeUser.getUserObject(currentEmail)
+                        //currentRealtimeUser = currentRealtimeUser.getUserObject()
                         if (currentRealtimeUser.userFullName != null) {
                             firstName = currentRealtimeUser.userFullName.toString()
                         }
