@@ -5,7 +5,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -60,19 +59,13 @@ data class DBWorkout(
 
 
 class WorkoutsActivity : AppCompatActivity() {
-    private val viewModel: WorkoutsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val pageBool = viewModel.pageBool
 
         setContent {
             AppTheme {
                 Surface {
-                    if (pageBool) {
-                        WorkoutsScreen()
-                    } else {
-                        WorkoutInfo()
-                    }
+                    WorkoutsScreen()
                 }
             }
 
@@ -84,22 +77,81 @@ class WorkoutsActivity : AppCompatActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkoutsScreen() {
+    val viewModel = viewModel<WorkoutsViewModel>()
+    val pageBool = viewModel.pageBool
+
     AppTheme {
-        Surface {
-            Scaffold(topBar = {
-                TopAppBar(title = { Text("Workouts") })
-            }, content = {
-                Column(
-                    modifier = Modifier
-                        .padding(top = 100.dp)
-                        .padding(50.dp)
-                ) {
-                    workoutsList.forEach { workout ->
-                        WorkoutBlock(workout = workout)
-                        Spacer(modifier = Modifier.height(16.dp))
+        if (!pageBool) {
+            Surface {
+                Scaffold(topBar = {
+                    TopAppBar(title = { Text("Workouts") })
+                }, content = {
+                    Column(
+                        modifier = Modifier
+                            .padding(top = 100.dp)
+                            .padding(50.dp)
+                    ) {
+                        workoutsList.forEach { workout ->
+                            WorkoutBlock(workout = workout)
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                     }
+                })
+            }
+        } else {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                val workoutName = viewModel.workoutName
+
+                var name by remember {
+                    mutableStateOf("")
                 }
-            })
+
+                var benefits by remember {
+                    mutableStateOf("")
+                }
+
+                var reps by remember {
+                    mutableStateOf("")
+                }
+
+                var steps by remember {
+                    mutableStateOf(mapOf("" to ""))
+                }
+
+                val workoutRef =
+                    Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
+                        .getReference("Workouts")
+
+                workoutRef.child(workoutName).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            val tempWorkout = snapshot.getValue(DBWorkout::class.java)!!
+
+                            name = tempWorkout.WorkoutName.toString()
+                            benefits = tempWorkout.Benefits.toString()
+                            reps = tempWorkout.Reps.toString()
+                            steps = tempWorkout.Steps!!
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.d("WorkoutDB", "Workout details could not be called")
+                    }
+                })
+
+                Text(text = "Workout name: $name")
+                Text(text = "Benefits: $benefits")
+                Text(text = "Reps: $reps")
+
+                val sortedSteps = TreeMap(steps)
+                sortedSteps.forEach { step ->
+                    Text(text = "${step.key}: ${step.value}")
+                }
+            }
         }
     }
 }
@@ -145,67 +197,8 @@ fun WorkoutBlock(workout: Workout) {
             }
         }
     }
-
 }
 
-@Composable
-fun WorkoutInfo() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        val viewModel = viewModel<WorkoutsViewModel>()
-
-        val workoutName = viewModel.workoutName
-
-        var name by remember {
-            mutableStateOf("")
-        }
-
-        var benefits by remember {
-            mutableStateOf("")
-        }
-
-        var reps by remember {
-            mutableStateOf("")
-        }
-
-        var steps by remember {
-            mutableStateOf(mapOf("" to ""))
-        }
-
-        val workoutRef =
-            Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
-                .getReference("Workouts")
-
-        workoutRef.child(workoutName).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val tempWorkout = snapshot.getValue(DBWorkout::class.java)!!
-
-                    name = tempWorkout.WorkoutName.toString()
-                    benefits = tempWorkout.Benefits.toString()
-                    reps = tempWorkout.Reps.toString()
-                    steps = tempWorkout.Steps!!
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("WorkoutDB", "Workout details could not be called")
-            }
-        })
-
-        Text(text = "Workout name: $name")
-        Text(text = "Benefits: $benefits")
-        Text(text = "Reps: $reps")
-
-        val sortedSteps = TreeMap(steps)
-        sortedSteps.forEach { step ->
-            Text(text = "${step.key}: ${step.value}")
-        }
-    }
-}
 
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode"
@@ -216,22 +209,9 @@ fun WorkoutsScreenPreview() {
         Surface {
             WorkoutsScreen()
         }
-
     }
 }
 
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode"
-)
-@Composable
-fun WorkoutInfoPreview() {
-    AppTheme {
-        Surface {
-            WorkoutInfo()
-        }
-
-    }
-}
 
 class WorkoutsViewModel : ViewModel() {
     var pageBool by mutableStateOf(false)
