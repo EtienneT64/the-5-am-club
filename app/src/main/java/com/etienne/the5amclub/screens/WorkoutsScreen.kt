@@ -15,13 +15,18 @@ import com.etienne.the5amclub.ui.theme.AppTheme
 
 @Composable
 fun WorkoutsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Workouts",
-            fontWeight = FontWeight.Bold,
-        )
+    AppTheme {
+        Surface {
+            Box(
+                modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Workouts",
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+        }
+
     }
 }
 

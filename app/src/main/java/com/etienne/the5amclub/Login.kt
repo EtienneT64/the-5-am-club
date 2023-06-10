@@ -60,128 +60,138 @@ class LogIn : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun LogInScreen() {
-        val viewModel = viewModel<UserViewModel>()
-        var inputEmail by remember {
-            mutableStateOf("")
-        }
-        var inputPassword by remember {
-            mutableStateOf("")
-        }
-        var loginState by remember {
-            mutableStateOf(false)
-        }
-        if (loginState) {
-            //After sign in, auth current user is assigned
-            //The current user is what the view model uses to grab data from the database
-            viewModel
-
-            //Swapping the intent makes the login screen go away
-            //Ultimately a temp solution, unless we decide not to fix
-            val intent = Intent(this@LogIn, MainActivity::class.java)
-            startActivity(intent)
-            MainScreen()
-        }
-
-        fun userLogIn(email: String, password: String) {
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success
-                    Toast.makeText(
-                        baseContext,
-                        "Log in successful.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                    loginState = true
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(
-                        baseContext,
-                        "Log in unsuccessful.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-
-                    loginState = false
+        AppTheme {
+            Surface {
+                val viewModel = viewModel<UserViewModel>()
+                var inputEmail by remember {
+                    mutableStateOf("")
                 }
-            }
-                .addOnFailureListener { exception -> //Shows the error message that caused the log in to break
-                    Toast.makeText(
-                        baseContext,
-                        exception.localizedMessage,
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                var inputPassword by remember {
+                    mutableStateOf("")
                 }
-        }
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .offset(x = 0.dp, y = 150.dp),
-        ) {
-            Text(
-                text = "Login",
-                fontSize = 50.sp,
-            )
-            Text(text = "Don't Have An Account?")
+                var loginState by remember {
+                    mutableStateOf(false)
+                }
+                if (loginState) {
+                    //After sign in, auth current user is assigned
+                    //The current user is what the view model uses to grab data from the database
+                    viewModel
 
-            Button(
-                onClick = {
-                    inputEmail = ""
-                    inputPassword = ""
-                    Firebase.auth.signOut()
-                    val intent = Intent(this@LogIn, Register::class.java)
+                    //Swapping the intent makes the login screen go away
+                    //Ultimately a temp solution, unless we decide not to fix
+                    val intent = Intent(this@LogIn, MainActivity::class.java)
                     startActivity(intent)
-                },
-                modifier = Modifier.size(width = 150.dp, height = 35.dp),
-            ) {
-                Text(text = "Sign Up Here")
-            }
-        }
-        Column(
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            //Column to group the info buttons and labels
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp),
-            ) {
-                Text(
-                    text = "Email", fontSize = 20.sp, modifier = Modifier.absolutePadding(45.dp)
-                )
-                OutlinedTextField(value = inputEmail,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onValueChange = { text ->
-                        inputEmail = text
-                    })
-                Text(
-                    text = "Password", fontSize = 20.sp, modifier = Modifier.absolutePadding(45.dp)
-                )
-                OutlinedTextField(value = inputPassword,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onValueChange = { text ->
-                        inputPassword = text
-                    })
-            }
-            //Column to center the register button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = "Please Login In To Continue", textDecoration = TextDecoration.Underline
-                )
-                Button(
-                    onClick = {
-                        userLogIn(inputEmail, inputPassword)
-                        inputEmail = ""
-                        inputPassword = ""
-                    }, modifier = Modifier.size(width = 200.dp, height = 50.dp)
+                    MainScreen()
+                }
+
+                fun userLogIn(email: String, password: String) {
+                    auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success
+                                Toast.makeText(
+                                    baseContext,
+                                    "Log in successful.",
+                                    Toast.LENGTH_SHORT,
+                                ).show()
+                                loginState = true
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(
+                                    baseContext,
+                                    "Log in unsuccessful.",
+                                    Toast.LENGTH_SHORT,
+                                ).show()
+
+                                loginState = false
+                            }
+                        }
+                        .addOnFailureListener { exception -> //Shows the error message that caused the log in to break
+                            Toast.makeText(
+                                baseContext,
+                                exception.localizedMessage,
+                                Toast.LENGTH_SHORT,
+                            ).show()
+                        }
+                }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .offset(x = 0.dp, y = 150.dp),
                 ) {
                     Text(
-                        text = "Login", fontSize = 25.sp
+                        text = "Login",
+                        fontSize = 50.sp,
                     )
+                    Text(text = "Don't Have An Account?")
+
+                    Button(
+                        onClick = {
+                            inputEmail = ""
+                            inputPassword = ""
+                            Firebase.auth.signOut()
+                            val intent = Intent(this@LogIn, Register::class.java)
+                            startActivity(intent)
+                        },
+                        modifier = Modifier.size(width = 150.dp, height = 35.dp),
+                    ) {
+                        Text(text = "Sign Up Here")
+                    }
+                }
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    //Column to group the info buttons and labels
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(all = 10.dp),
+                    ) {
+                        Text(
+                            text = "Email",
+                            fontSize = 20.sp,
+                            modifier = Modifier.absolutePadding(45.dp)
+                        )
+                        OutlinedTextField(value = inputEmail,
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            onValueChange = { text ->
+                                inputEmail = text
+                            })
+                        Text(
+                            text = "Password",
+                            fontSize = 20.sp,
+                            modifier = Modifier.absolutePadding(45.dp)
+                        )
+                        OutlinedTextField(value = inputPassword,
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            onValueChange = { text ->
+                                inputPassword = text
+                            })
+                    }
+                    //Column to center the register button
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "Please Login In To Continue",
+                            textDecoration = TextDecoration.Underline
+                        )
+                        Button(
+                            onClick = {
+                                userLogIn(inputEmail, inputPassword)
+                                inputEmail = ""
+                                inputPassword = ""
+                            }, modifier = Modifier.size(width = 200.dp, height = 50.dp)
+                        ) {
+                            Text(
+                                text = "Login", fontSize = 25.sp
+                            )
+                        }
+                    }
                 }
             }
         }
