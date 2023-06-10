@@ -186,7 +186,8 @@ private fun BMICalculate(weight: Double, height: Double): String {
 }
 
 @Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode"
+    uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode",
+    device = "id:pixel_4", showSystemUi = true
 )
 @Composable
 fun UtilitiesScreenPreview() {
