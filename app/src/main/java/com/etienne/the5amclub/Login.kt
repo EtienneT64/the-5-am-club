@@ -200,6 +200,25 @@ class LogIn : ComponentActivity() {
                     onClick = {
                         //Add empty input validation
 
+                    userLogIn(inputEmail, inputPassword)
+                    inputEmail = ""
+                    inputPassword = ""
+                }) {
+                    Text(text="Log In")
+                }
+                Button(onClick = {
+                    currentEmail = checkUser()
+                    Log.d("FB", currentEmail)
+                    if (currentEmail != "No Current User") {
+                        //currentRealtimeUser = currentRealtimeUser.getUserObject()
+                        if (currentRealtimeUser.userFullName != null) {
+                            firstName = currentRealtimeUser.userFullName.toString()
+                        }
+                        else{
+                            firstName = "The name is null."
+                            Log.d("Realtime User", "The thingy is blank")
+                        }
+                    }
                         userLogIn(inputEmail, inputPassword)
                         inputEmail = ""
                         inputPassword = ""
@@ -211,9 +230,24 @@ class LogIn : ComponentActivity() {
 
                     )
                 }
+                Button(onClick = {
+                    currentEmail = checkUser()
+                    if (currentEmail != "No Current User") {
+                        //currentRealtimeUser = currentRealtimeUser.getUserObject()
+                        if (currentRealtimeUser.userFullName != null) {
+                            firstName = currentRealtimeUser.userFullName.toString()
+                        }
+                        else{
+                            firstName = "The name is null."
+                            Log.d("Realtime User", "The thingy is blank")
+                        }
+                    }
+
+                }) {
+                    Text(text="Test Callback")
+                }
             }
         }
-
 
     }
 
