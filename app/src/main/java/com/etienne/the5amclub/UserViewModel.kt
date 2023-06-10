@@ -23,11 +23,18 @@ class UserViewModel : ViewModel() {
     }
 
     private fun getUser() {
-        viewModelScope.launch(Dispatchers.IO) {
-            loading.value = false
-            viewModelUser.value = getCurrentRealtimeUser()
-            Log.d("Inside Coroutine", viewModelUser.value.userFullName.toString())
-            loading.value = true
+        val user = Firebase.auth.currentUser
+
+        if (user != null) {
+            viewModelScope.launch(Dispatchers.IO) {
+                loading.value = false
+                viewModelUser.value = getCurrentRealtimeUser()
+                Log.d("Inside Coroutine", viewModelUser.value.userFullName.toString())
+                loading.value = true
+            }
+        }
+        else{
+            viewModelUser.value = UserModel()
         }
     }
 
