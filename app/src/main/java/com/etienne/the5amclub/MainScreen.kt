@@ -13,11 +13,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.etienne.the5amclub.ui.theme.AppTheme
-import com.google.firebase.auth.FirebaseUser
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(user: FirebaseUser?) {
+fun MainScreen() {
 
     val navController = rememberNavController()
     Scaffold(bottomBar = { BottomBar(navController = navController) }) {
@@ -71,13 +70,10 @@ fun RowScope.AddItem(
 )
 @Composable
 fun MainScreenPreview() {
-    //TODO Maybe remove this user code
-    val user: FirebaseUser?
 
-    user = null
     AppTheme {
         Surface {
-            MainScreen(user)
+            MainScreen()
         }
     }
 
