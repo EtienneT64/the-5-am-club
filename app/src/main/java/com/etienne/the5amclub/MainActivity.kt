@@ -2,8 +2,6 @@ package com.etienne.the5amclub
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,28 +20,28 @@ class MainActivity : ComponentActivity() {
 
         FirebaseApp.initializeApp(this)
 
-            val user = Firebase.auth.currentUser
+        val user = Firebase.auth.currentUser
 
-            //If the user object is null, that means there is no current user, so we should point them to signup or login
-            if (user != null) {
-                Log.d("OnCreation", user.email.toString())
+        //If the user object is null, that means there is no current user, so we should point them to signup or login
+        if (user != null) {
+            Log.d("OnCreation", user.email.toString())
 
-                //Calling the viewModel like this initializes the view model
-                //On initial is when it pulls from the database
-                viewModel
+            //Calling the viewModel like this initializes the view model
+            //On initial is when it pulls from the database
+            viewModel
 
-                setContent {
-                    //TODO Add back BottomNavBarTheme
-                    //BottomNavBarTheme {
-                    val user = Firebase.auth.currentUser
-                    MainScreen(user)
-                    //}
-                }
-            } else {
-                Log.d("Send User to LogIn", "There is no current user")
-                val intent = Intent(this@MainActivity, LogIn::class.java)
-                startActivity(intent)
+            setContent {
+                //TODO Add back BottomNavBarTheme
+                //BottomNavBarTheme {
+                val user = Firebase.auth.currentUser
+                MainScreen(user)
+                //}
             }
+        } else {
+            Log.d("Send User to LogIn", "There is no current user")
+            val intent = Intent(this@MainActivity, LogIn::class.java)
+            startActivity(intent)
+        }
 
     }
 }

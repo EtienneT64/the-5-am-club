@@ -20,9 +20,7 @@ import com.google.firebase.auth.FirebaseUser
 fun MainScreen(user: FirebaseUser?) {
 
     val navController = rememberNavController()
-    Scaffold(
-        bottomBar = { BottomBar(navController = navController) }
-    ) {
+    Scaffold(bottomBar = { BottomBar(navController = navController) }) {
         BottomNavGraph(navController = navController)
     }
 }
@@ -52,34 +50,24 @@ fun BottomBar(navController: NavHostController) {
 
 @Composable
 fun RowScope.AddItem(
-    screen: BottomBarScreen,
-    currentDestination: NavDestination?,
-    navController: NavHostController
+    screen: BottomBarScreen, currentDestination: NavDestination?, navController: NavHostController
 ) {
-    BottomNavigationItem(
-        label = {
-            Text(text = screen.title)
-        },
-        icon = {
-            Icon(
-                imageVector = screen.icon,
-                contentDescription = "Navigation Icon"
-            )
-        },
-        selected = currentDestination?.hierarchy?.any {
-            it.route == screen.route
-        } == true,
-        onClick = {
-            navController.navigate(screen.route)
-        }
-    )
+    BottomNavigationItem(label = {
+        Text(text = screen.title)
+    }, icon = {
+        Icon(
+            imageVector = screen.icon, contentDescription = "Navigation Icon"
+        )
+    }, selected = currentDestination?.hierarchy?.any {
+        it.route == screen.route
+    } == true, onClick = {
+        navController.navigate(screen.route)
+    })
 
 }
 
 @Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    showBackground = true,
-    name = "Dark Mode"
+    uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode"
 )
 @Composable
 fun MainScreenPreview() {

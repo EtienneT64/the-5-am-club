@@ -10,21 +10,20 @@ import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class UserViewModel(): ViewModel() {
+class UserViewModel : ViewModel() {
     var loading = MutableStateFlow(false)
-    val viewModelUser : MutableState<UserModel> = mutableStateOf(UserModel())
+    val viewModelUser: MutableState<UserModel> = mutableStateOf(UserModel())
 
-    init{
+    init {
         getUser()
     }
 
-    private fun getUser(){
-        viewModelScope.launch(Dispatchers.IO){
+    private fun getUser() {
+        viewModelScope.launch(Dispatchers.IO) {
             loading.value = false
             viewModelUser.value = getCurrentRealtimeUser()
             Log.d("Inside Coroutine", viewModelUser.value.userFullName.toString())
@@ -50,7 +49,7 @@ class UserViewModel(): ViewModel() {
                     return tempUser
                 }
             }
-        }catch(e: DatabaseException){
+        } catch (e: DatabaseException) {
             Log.e("UserModelDatabase", e.toString())
         }
 

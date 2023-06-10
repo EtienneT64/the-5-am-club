@@ -3,6 +3,7 @@ package com.etienne.the5amclub
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -196,29 +197,28 @@ class LogIn : ComponentActivity() {
                 )
 
 
-                Button(
-                    onClick = {
-                        //Add empty input validation
+                Button(onClick = {
+                    //Add empty input validation
 
                     userLogIn(inputEmail, inputPassword)
                     inputEmail = ""
                     inputPassword = ""
                 }) {
-                    Text(text="Log In")
+                    Text(text = "Log In")
                 }
-                Button(onClick = {
-                    currentEmail = checkUser()
-                    Log.d("FB", currentEmail)
-                    if (currentEmail != "No Current User") {
-                        //currentRealtimeUser = currentRealtimeUser.getUserObject()
-                        if (currentRealtimeUser.userFullName != null) {
-                            firstName = currentRealtimeUser.userFullName.toString()
+                Button(
+                    onClick = {
+                        currentEmail = checkUser()
+                        Log.d("FB", currentEmail)
+                        if (currentEmail != "No Current User") {
+                            //currentRealtimeUser = currentRealtimeUser.getUserObject()
+                            if (currentRealtimeUser.userFullName != null) {
+                                firstName = currentRealtimeUser.userFullName.toString()
+                            } else {
+                                firstName = "The name is null."
+                                Log.d("Realtime User", "The thingy is blank")
+                            }
                         }
-                        else{
-                            firstName = "The name is null."
-                            Log.d("Realtime User", "The thingy is blank")
-                        }
-                    }
                         userLogIn(inputEmail, inputPassword)
                         inputEmail = ""
                         inputPassword = ""
@@ -236,15 +236,14 @@ class LogIn : ComponentActivity() {
                         //currentRealtimeUser = currentRealtimeUser.getUserObject()
                         if (currentRealtimeUser.userFullName != null) {
                             firstName = currentRealtimeUser.userFullName.toString()
-                        }
-                        else{
+                        } else {
                             firstName = "The name is null."
                             Log.d("Realtime User", "The thingy is blank")
                         }
                     }
 
                 }) {
-                    Text(text="Test Callback")
+                    Text(text = "Test Callback")
                 }
             }
         }

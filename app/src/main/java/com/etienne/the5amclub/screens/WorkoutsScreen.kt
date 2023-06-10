@@ -16,9 +16,7 @@ import com.etienne.the5amclub.ui.theme.AppTheme
 @Composable
 fun WorkoutsScreen() {
     Box(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
         Text(
             text = "Workouts",
@@ -28,9 +26,7 @@ fun WorkoutsScreen() {
 }
 
 @Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    showBackground = true,
-    name = "Dark Mode"
+    uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode"
 )
 @Composable
 fun WorkoutsScreenPreview() {

@@ -2,6 +2,7 @@ package com.etienne.the5amclub.screens
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -13,26 +14,21 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.TextField
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.runtime.collectAsState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,18 +36,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.etienne.the5amclub.R
-import com.etienne.the5amclub.UserModel
-import com.etienne.the5amclub.ui.theme.AppTheme
 import com.etienne.the5amclub.UserViewModel
-import com.google.firebase.FirebaseApp
+import com.etienne.the5amclub.ui.theme.AppTheme
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-//import com.example.bottomnavbar.R
-
-
-@OptIn(ExperimentalCoroutinesApi::class)
+//@OptIn(ExperimentalCoroutinesApi::class)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("InvalidColorHexValue")
 @Composable
@@ -94,17 +85,14 @@ fun ProfileScreen() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxSize()
+                modifier = Modifier.fillMaxSize()
             ) {
 
                 Text(
                     text = "PROFILE",
                     fontSize = 50.sp,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .offset(x = 0.dp, y = -10.dp)
-                    /*.padding(bottom = 110.dp)*/
+                    modifier = Modifier.offset(x = 0.dp, y = -10.dp)/*.padding(bottom = 110.dp)*/
                 )
 
                 Image(
@@ -127,16 +115,11 @@ fun ProfileScreen() {
                     text = "Account Details:",
                     fontSize = 30.sp,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        /*.offset(x = -80.dp, y = 0.dp)*/
-                        .padding(bottom = 25.dp)
+                    modifier = Modifier/*.offset(x = -80.dp, y = 0.dp)*/.padding(bottom = 25.dp)
 
                 )
 
-                Row(
-
-
-                ) {
+                Row {
 
                     Text(
                         text = "NAME:",
@@ -214,43 +197,39 @@ fun ProfileScreen() {
 
             }
         }
-        else {
+    } else {
 
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(brush1),
-            )
-            {
-                CircularProgressBar(hasLoaded)
-            }
-        }
-    }
-
-    @Preview(
-        uiMode = Configuration.UI_MODE_NIGHT_YES,
-        showBackground = true,
-        name = "Dark Mode"
-    )
-    @Composable
-    fun ProfileScreenPreview() {
-        AppTheme {
-            Surface {
-                ProfileScreen()
-            }
-        }
-    }
-
-    @ExperimentalCoroutinesApi
-    @Composable
-    fun CircularProgressBar(
-        isDisplayed: Boolean
-    ) {
-        if (isDisplayed) {
-            CircularProgressIndicator()
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            CircularProgressBar(hasLoaded)
         }
     }
 }
+
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode"
+)
+@Composable
+fun ProfileScreenPreview() {
+    AppTheme {
+        Surface {
+            ProfileScreen()
+        }
+    }
+}
+
+@ExperimentalCoroutinesApi
+@Composable
+fun CircularProgressBar(
+    isDisplayed: Boolean
+) {
+    if (isDisplayed) {
+        CircularProgressIndicator()
+    }
+}
+
+
