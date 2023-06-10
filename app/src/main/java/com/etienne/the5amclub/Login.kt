@@ -3,7 +3,6 @@ package com.etienne.the5amclub
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -31,11 +30,13 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.etienne.the5amclub.ui.theme.AppTheme
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+@Suppress("UNUSED_EXPRESSION")
 class LogIn : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var currentRealtimeUser: UserModel
@@ -52,45 +53,33 @@ class LogIn : ComponentActivity() {
                 Surface {
                     LogInScreen()
                 }
-
             }
-
         }
-    }
-
-
-    //Checks if there is a user signed in and returns an email if there is
-    private fun checkUser(): String {
-        val user = Firebase.auth.currentUser
-        return if ((user != null) && (user.email != null)) user.email.toString()
-        else "No Current User"
-
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun LogInScreen() {
+        val viewModel = viewModel<UserViewModel>()
         var inputEmail by remember {
             mutableStateOf("")
         }
         var inputPassword by remember {
             mutableStateOf("")
         }
-        var currentEmail by remember {
-            mutableStateOf("")
-        }
-        var firstName by remember {
-            mutableStateOf("")
-        }
-
         var loginState by remember {
             mutableStateOf(false)
         }
-
-
         if (loginState) {
-            val user = Firebase.auth.currentUser
-            MainScreen(user)
+            //After sign in, auth current user is assigned
+            //The current user is what the view model uses to grab data from the database
+            viewModel
+
+            //Swapping the intent makes the login screen go away
+            //Ultimately a temp solution, unless we decide not to fix
+            val intent = Intent(this@LogIn, MainActivity::class.java)
+            startActivity(intent)
+            MainScreen()
         }
 
         fun userLogIn(email: String, password: String) {
@@ -103,7 +92,6 @@ class LogIn : ComponentActivity() {
                         Toast.LENGTH_SHORT,
                     ).show()
                     loginState = true
-
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(
@@ -113,7 +101,6 @@ class LogIn : ComponentActivity() {
                     ).show()
 
                     loginState = false
-                    //throw Exception("User Log In Unsuccessful")
                 }
             }
                 .addOnFailureListener { exception -> //Shows the error message that caused the log in to break
@@ -124,7 +111,6 @@ class LogIn : ComponentActivity() {
                     ).show()
                 }
         }
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -137,7 +123,6 @@ class LogIn : ComponentActivity() {
             )
             Text(text = "Don't Have An Account?")
 
-
             Button(
                 onClick = {
                     inputEmail = ""
@@ -147,19 +132,15 @@ class LogIn : ComponentActivity() {
                     startActivity(intent)
                 },
                 modifier = Modifier.size(width = 150.dp, height = 35.dp),
-
                 ) {
                 Text(text = "Sign Up Here")
             }
-
-
         }
         Column(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-
             //Column to group the info buttons and labels
             Column(
                 modifier = Modifier
@@ -168,7 +149,6 @@ class LogIn : ComponentActivity() {
             ) {
                 Text(
                     text = "Email", fontSize = 20.sp, modifier = Modifier.absolutePadding(45.dp)
-
                 )
                 OutlinedTextField(value = inputEmail,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -177,7 +157,6 @@ class LogIn : ComponentActivity() {
                     })
                 Text(
                     text = "Password", fontSize = 20.sp, modifier = Modifier.absolutePadding(45.dp)
-
                 )
                 OutlinedTextField(value = inputPassword,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -191,63 +170,21 @@ class LogIn : ComponentActivity() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-
                     text = "Please Login In To Continue", textDecoration = TextDecoration.Underline
-
                 )
-
-
-                Button(onClick = {
-                    //Add empty input validation
-
-                    userLogIn(inputEmail, inputPassword)
-                    inputEmail = ""
-                    inputPassword = ""
-                }) {
-                    Text(text = "Log In")
-                }
                 Button(
                     onClick = {
-                        currentEmail = checkUser()
-                        Log.d("FB", currentEmail)
-                        if (currentEmail != "No Current User") {
-                            //currentRealtimeUser = currentRealtimeUser.getUserObject()
-                            if (currentRealtimeUser.userFullName != null) {
-                                firstName = currentRealtimeUser.userFullName.toString()
-                            } else {
-                                firstName = "The name is null."
-                                Log.d("Realtime User", "The thingy is blank")
-                            }
-                        }
                         userLogIn(inputEmail, inputPassword)
                         inputEmail = ""
                         inputPassword = ""
                     }, modifier = Modifier.size(width = 200.dp, height = 50.dp)
-
                 ) {
                     Text(
                         text = "Login", fontSize = 25.sp
-
                     )
-                }
-                Button(onClick = {
-                    currentEmail = checkUser()
-                    if (currentEmail != "No Current User") {
-                        //currentRealtimeUser = currentRealtimeUser.getUserObject()
-                        if (currentRealtimeUser.userFullName != null) {
-                            firstName = currentRealtimeUser.userFullName.toString()
-                        } else {
-                            firstName = "The name is null."
-                            Log.d("Realtime User", "The thingy is blank")
-                        }
-                    }
-
-                }) {
-                    Text(text = "Test Callback")
                 }
             }
         }
-
     }
 
     @Preview(
@@ -260,6 +197,5 @@ class LogIn : ComponentActivity() {
                 LogInScreen()
             }
         }
-
     }
 }
