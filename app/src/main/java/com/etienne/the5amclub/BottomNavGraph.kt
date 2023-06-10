@@ -27,7 +27,7 @@ fun BottomNavGraph(navController: NavHostController) {
                     ProfileScreen()
                 }
                 composable(route = BottomBarScreen.Workouts.route) {
-                    WorkoutsScreen()
+                    WorkoutsScreen(true)
                 }
                 composable(route = BottomBarScreen.Utilities.route) {
                     UtilitiesScreen()
