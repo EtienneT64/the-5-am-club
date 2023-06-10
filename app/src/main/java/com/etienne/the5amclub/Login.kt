@@ -132,7 +132,7 @@ class LogIn : ComponentActivity() {
                     startActivity(intent)
                 },
                 modifier = Modifier.size(width = 150.dp, height = 35.dp),
-                ) {
+            ) {
                 Text(text = "Sign Up Here")
             }
         }

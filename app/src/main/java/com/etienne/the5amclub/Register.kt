@@ -73,8 +73,7 @@ class Register : ComponentActivity() {
                     "$token!",
                     Toast.LENGTH_SHORT,
                 ).show()
-
-                //Adding User to Firebase Realtime Database
+                
                 addUserToRealtime(firstname, email, starsign)
 
                 Firebase.auth.signOut()
@@ -140,14 +139,11 @@ class Register : ComponentActivity() {
                 .padding(top = 100.dp),
         ) {
             Text(
-                text = "Create New",
-                fontSize = 50.sp,
-                modifier = Modifier.padding(20.dp)
+                text = "Create New", fontSize = 50.sp, modifier = Modifier.padding(20.dp)
             )
 
             Text(
-                text = "Account",
-                fontSize = 50.sp
+                text = "Account", fontSize = 50.sp
             )
 
             Text(text = "Already Registered?")
@@ -159,8 +155,7 @@ class Register : ComponentActivity() {
                     inputFullName = ""
                     val intent = Intent(this@Register, LogIn::class.java)
                     startActivity(intent)
-                },
-                modifier = Modifier.size(width = 150.dp, height = 35.dp)
+                }, modifier = Modifier.size(width = 150.dp, height = 35.dp)
             ) {
                 Text(text = "LOG IN HERE")
             }
@@ -180,37 +175,27 @@ class Register : ComponentActivity() {
                     fontSize = 20.sp,
                     modifier = Modifier.padding(start = 45.dp, top = 160.dp)
                 )
-                OutlinedTextField(
-                    value = inputFullName,
+                OutlinedTextField(value = inputFullName,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputFullName = text
-                    }
-                )
+                    })
                 Text(
-                    text = "Email",
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(start = 45.dp)
+                    text = "Email", fontSize = 20.sp, modifier = Modifier.padding(start = 45.dp)
                 )
-                OutlinedTextField(
-                    value = inputEmail,
+                OutlinedTextField(value = inputEmail,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputEmail = text
-                    }
-                )
+                    })
                 Text(
-                    text = "Password",
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(start = 45.dp)
+                    text = "Password", fontSize = 20.sp, modifier = Modifier.padding(start = 45.dp)
                 )
-                OutlinedTextField(
-                    value = inputPassword,
+                OutlinedTextField(value = inputPassword,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     onValueChange = { text ->
                         inputPassword = text
-                    }
-                )
+                    })
             }
 
             Column(
@@ -223,8 +208,7 @@ class Register : ComponentActivity() {
                         inputEmail = ""
                         inputPassword = ""
                         inputFullName = ""
-                    },
-                    modifier = Modifier.size(width = 250.dp, height = 50.dp)
+                    }, modifier = Modifier.size(width = 250.dp, height = 50.dp)
                 ) {
                     Text(text = "Sign Up", fontSize = 25.sp)
                 }

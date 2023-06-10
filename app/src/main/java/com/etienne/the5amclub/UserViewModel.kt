@@ -32,8 +32,7 @@ class UserViewModel : ViewModel() {
                 Log.d("Inside Coroutine", viewModelUser.value.userFullName.toString())
                 loading.value = true
             }
-        }
-        else{
+        } else {
             viewModelUser.value = UserModel()
         }
     }

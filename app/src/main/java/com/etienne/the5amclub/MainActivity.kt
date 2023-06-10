@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -17,8 +16,6 @@ class MainActivity : ComponentActivity() {
     private val viewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        FirebaseApp.initializeApp(this)
 
         val user = Firebase.auth.currentUser
 
@@ -31,17 +28,12 @@ class MainActivity : ComponentActivity() {
             viewModel
 
             setContent {
-                //TODO Add back BottomNavBarTheme
-                //BottomNavBarTheme {
-                val user = Firebase.auth.currentUser
-                MainScreen(user)
-                //}
+                MainScreen()
             }
         } else {
             Log.d("Send User to LogIn", "There is no current user")
             val intent = Intent(this@MainActivity, LogIn::class.java)
             startActivity(intent)
         }
-
     }
 }
