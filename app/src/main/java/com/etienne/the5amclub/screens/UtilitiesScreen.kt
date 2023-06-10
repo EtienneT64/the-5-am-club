@@ -164,7 +164,7 @@ fun UtilitiesScreen() {
 
                         }, modifier = Modifier
                             .offset(x = 0.dp, y = 20.dp)
-                            .padding(top = 400.dp)
+                            .padding(top = 350.dp)
 
                     ) {
                         Text(

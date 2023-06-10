@@ -11,7 +11,7 @@ sealed class BottomBarScreen(
     val route: String, val title: String, val icon: ImageVector
 ) {
     object Profile : BottomBarScreen(
-        route = "profile", title = "Profile", icon = Icons.Default.Person
+        route = "profile", title = "Profile", icon = Icons.Default.Person,
     )
 
     object Home : BottomBarScreen(
