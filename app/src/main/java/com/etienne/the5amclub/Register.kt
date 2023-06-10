@@ -68,7 +68,6 @@ class Register : ComponentActivity() {
                 // Sign in success
                 val user = Firebase.auth.currentUser
                 val token = user?.getIdToken(false)
-                //val username = user?.email.toString()
                 Toast.makeText(
                     baseContext,
                     "$token!",
@@ -76,7 +75,6 @@ class Register : ComponentActivity() {
                 ).show()
 
                 //Adding User to Firebase Realtime Database
-                //
                 addUserToRealtime(firstname, email, starsign)
 
                 Firebase.auth.signOut()
@@ -167,7 +165,6 @@ class Register : ComponentActivity() {
                 Text(text = "LOG IN HERE")
             }
         }
-
         Column(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center,
