@@ -1,7 +1,7 @@
 package com.etienne.the5amclub
 
 import android.annotation.SuppressLint
-import android.util.Log
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -12,11 +12,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.etienne.the5amclub.BottomBarScreen
-import com.etienne.the5amclub.bottomnavbar.BottomNavGraph
+import com.etienne.the5amclub.ui.theme.AppTheme
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -24,7 +21,7 @@ fun MainScreen(user: FirebaseUser?) {
 
     val navController = rememberNavController()
     Scaffold(
-        bottomBar = {BottomBar(navController = navController)}
+        bottomBar = { BottomBar(navController = navController) }
     ) {
         BottomNavGraph(navController = navController)
     }
@@ -41,9 +38,13 @@ fun BottomBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation{
-        screens.forEach{ screen ->
-            AddItem(screen = screen, currentDestination = currentDestination , navController = navController)
+    BottomNavigation {
+        screens.forEach { screen ->
+            AddItem(
+                screen = screen,
+                currentDestination = currentDestination,
+                navController = navController
+            )
         }
     }
 }
@@ -55,33 +56,43 @@ fun RowScope.AddItem(
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {
-  BottomNavigationItem(
-      label = {
-          Text(text = screen.title)
-      },
-      icon = {
-          Icon(imageVector = screen.icon,
-              contentDescription = "Navigation Icon"
-          )
-      },
-      selected = currentDestination?.hierarchy?.any {
-          it.route == screen.route
-      }==true,
-      onClick = {
-          navController.navigate(screen.route)
-      }
-  )
+    BottomNavigationItem(
+        label = {
+            Text(text = screen.title)
+        },
+        icon = {
+            Icon(
+                imageVector = screen.icon,
+                contentDescription = "Navigation Icon"
+            )
+        },
+        selected = currentDestination?.hierarchy?.any {
+            it.route == screen.route
+        } == true,
+        onClick = {
+            navController.navigate(screen.route)
+        }
+    )
 
 }
 
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
 @Composable
-@Preview
 fun MainScreenPreview() {
     //TODO Maybe remove this user code
-    val user : FirebaseUser?
+    val user: FirebaseUser?
 
     user = null
-    MainScreen(user)
+    AppTheme {
+        Surface {
+            MainScreen(user)
+        }
+    }
+
 }
 
 
