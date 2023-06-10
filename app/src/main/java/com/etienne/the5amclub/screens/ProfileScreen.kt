@@ -44,12 +44,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalCoroutinesApi::class)
 @SuppressLint("InvalidColorHexValue")
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    //These parameters are solely added for the preview, otherwise it won't work
+    preFullName: String? = null,
+    preEmail: String? = null,
+    preStatus: String? = null,
+    isPreview: Boolean? = null,
+) {
     AppTheme {
         Surface {
-            val viewModel = viewModel<UserViewModel>()
-            val hasLoaded by viewModel.loading.collectAsState()
-
             var FullName by remember {
                 mutableStateOf("")
             }
@@ -59,15 +62,35 @@ fun ProfileScreen() {
             var Status by remember {
                 mutableStateOf("")
             }
+            var loaded by remember {
+                mutableStateOf(false)
+            }
 
-    if (hasLoaded) {
-        val currentRealtimeUser = viewModel.viewModelUser.value
+            if (isPreview == true) {
+                loaded = isPreview
+            } else {
+                val viewModel = viewModel<UserViewModel>()
+                val hasLoaded by viewModel.loading.collectAsState()
 
-                FullName = currentRealtimeUser.userFullName.toString()
+                loaded = hasLoaded
+            }
 
-                Email = currentRealtimeUser.userEmail.toString()
 
-                Status = currentRealtimeUser.userStatus.toString()
+            //Loaded is checked to see whether the data has loaded yet
+            if (loaded == true) {
+                if (isPreview == true) {
+                    FullName = preFullName.toString()
+                    Email = preEmail.toString()
+                    Status = preStatus.toString()
+                } else {
+                    //If isPreview is not true, than the data must be loaded from the database instead
+                    val viewModel = viewModel<UserViewModel>()
+                    val currentRealtimeUser = viewModel.viewModelUser.value
+
+                    FullName = currentRealtimeUser.userFullName.toString()
+                    Email = currentRealtimeUser.userEmail.toString()
+                    Status = currentRealtimeUser.userStatus.toString()
+                }
 
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -201,7 +224,7 @@ fun ProfileScreen() {
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    CircularProgressBar(hasLoaded)
+                    CircularProgressBar(true)
                 }
             }
         }
@@ -217,7 +240,9 @@ fun ProfileScreen() {
 fun ProfileScreenPreview() {
     AppTheme {
         Surface {
-            ProfileScreen()
+            //ProfileScreen is passed with test values
+            //If passed with true, the profile screen composable is told the data is a preview
+            ProfileScreen("Alex Romburgh", "alexromburgh@gmail.com", "Registered", true)
         }
     }
 }
