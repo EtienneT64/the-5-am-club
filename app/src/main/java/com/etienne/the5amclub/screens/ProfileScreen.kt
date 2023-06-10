@@ -38,12 +38,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.etienne.the5amclub.R
 import com.etienne.the5amclub.UserViewModel
 import com.etienne.the5amclub.ui.theme.AppTheme
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 //@OptIn(ExperimentalCoroutinesApi::class)
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalCoroutinesApi::class)
 @SuppressLint("InvalidColorHexValue")
 @Composable
 fun ProfileScreen() {
@@ -59,12 +57,6 @@ fun ProfileScreen() {
     var Status by remember {
         mutableStateOf("")
     }
-
-//    val context = LocalContext.current
-//    FirebaseApp.initializeApp(context)
-
-    val user = Firebase.auth.currentUser
-
 
     if (hasLoaded) {
         val currentRealtimeUser = viewModel.viewModelUser.value
