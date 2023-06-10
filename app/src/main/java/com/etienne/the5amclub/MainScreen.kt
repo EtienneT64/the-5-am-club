@@ -18,31 +18,38 @@ import com.google.firebase.auth.FirebaseUser
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen(user: FirebaseUser?) {
-
-    val navController = rememberNavController()
-    Scaffold(bottomBar = { BottomBar(navController = navController) }) {
-        BottomNavGraph(navController = navController)
+    AppTheme {
+        Surface {
+            val navController = rememberNavController()
+            Scaffold(bottomBar = { BottomBar(navController = navController) }) {
+                BottomNavGraph(navController = navController)
+            }
+        }
     }
 }
 
 @Composable
 fun BottomBar(navController: NavHostController) {
-    val screens = listOf(
-        BottomBarScreen.Profile,
-        BottomBarScreen.Home,
-        BottomBarScreen.Workouts,
-        BottomBarScreen.Utilities,
-    )
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-
-    BottomNavigation {
-        screens.forEach { screen ->
-            AddItem(
-                screen = screen,
-                currentDestination = currentDestination,
-                navController = navController
+    AppTheme {
+        Surface {
+            val screens = listOf(
+                BottomBarScreen.Profile,
+                BottomBarScreen.Home,
+                BottomBarScreen.Workouts,
+                BottomBarScreen.Utilities,
             )
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentDestination = navBackStackEntry?.destination
+
+            BottomNavigation {
+                screens.forEach { screen ->
+                    AddItem(
+                        screen = screen,
+                        currentDestination = currentDestination,
+                        navController = navController
+                    )
+                }
+            }
         }
     }
 }
@@ -52,18 +59,21 @@ fun BottomBar(navController: NavHostController) {
 fun RowScope.AddItem(
     screen: BottomBarScreen, currentDestination: NavDestination?, navController: NavHostController
 ) {
-    BottomNavigationItem(label = {
-        Text(text = screen.title)
-    }, icon = {
-        Icon(
-            imageVector = screen.icon, contentDescription = "Navigation Icon"
-        )
-    }, selected = currentDestination?.hierarchy?.any {
-        it.route == screen.route
-    } == true, onClick = {
-        navController.navigate(screen.route)
-    })
-
+    AppTheme {
+        Surface {
+            BottomNavigationItem(label = {
+                Text(text = screen.title)
+            }, icon = {
+                Icon(
+                    imageVector = screen.icon, contentDescription = "Navigation Icon"
+                )
+            }, selected = currentDestination?.hierarchy?.any {
+                it.route == screen.route
+            } == true, onClick = {
+                navController.navigate(screen.route)
+            })
+        }
+    }
 }
 
 @Preview(

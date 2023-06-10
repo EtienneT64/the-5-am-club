@@ -125,114 +125,108 @@ class Register : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun RegisterScreen() {
-        var inputFullName by remember {
-            mutableStateOf("")
-        }
-        var inputEmail by remember {
-            mutableStateOf("")
-        }
-        var inputPassword by remember {
-            mutableStateOf("")
-        }
+        AppTheme {
+            Surface {
+                var inputFullName by remember {
+                    mutableStateOf("")
+                }
+                var inputEmail by remember {
+                    mutableStateOf("")
+                }
+                var inputPassword by remember {
+                    mutableStateOf("")
+                }
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 100.dp),
-        ) {
-            Text(
-                text = "Create New",
-                fontSize = 50.sp,
-                modifier = Modifier.padding(20.dp)
-            )
-
-            Text(
-                text = "Account",
-                fontSize = 50.sp
-            )
-
-            Text(text = "Already Registered?")
-
-            Button(
-                onClick = {
-                    inputEmail = ""
-                    inputPassword = ""
-                    inputFullName = ""
-                    val intent = Intent(this@Register, LogIn::class.java)
-                    startActivity(intent)
-                },
-                modifier = Modifier.size(width = 150.dp, height = 35.dp)
-            ) {
-                Text(text = "LOG IN HERE")
-            }
-        }
-
-        Column(
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp)
-            ) {
-                Text(
-                    text = "Full Name",
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(start = 45.dp, top = 160.dp)
-                )
-                OutlinedTextField(
-                    value = inputFullName,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onValueChange = { text ->
-                        inputFullName = text
-                    }
-                )
-                Text(
-                    text = "Email",
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(start = 45.dp)
-                )
-                OutlinedTextField(
-                    value = inputEmail,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onValueChange = { text ->
-                        inputEmail = text
-                    }
-                )
-                Text(
-                    text = "Password",
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(start = 45.dp)
-                )
-                OutlinedTextField(
-                    value = inputPassword,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    onValueChange = { text ->
-                        inputPassword = text
-                    }
-                )
-            }
-
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Button(
-                    onClick = {
-                        userCreation(inputEmail, inputPassword, inputFullName)
-                        inputEmail = ""
-                        inputPassword = ""
-                        inputFullName = ""
-                    },
-                    modifier = Modifier.size(width = 250.dp, height = 50.dp)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 100.dp),
                 ) {
-                    Text(text = "Sign Up", fontSize = 25.sp)
+                    Text(
+                        text = "Create New", fontSize = 50.sp, modifier = Modifier.padding(20.dp)
+                    )
+
+                    Text(
+                        text = "Account", fontSize = 50.sp
+                    )
+
+                    Text(text = "Already Registered?")
+
+                    Button(
+                        onClick = {
+                            inputEmail = ""
+                            inputPassword = ""
+                            inputFullName = ""
+                            val intent = Intent(this@Register, LogIn::class.java)
+                            startActivity(intent)
+                        }, modifier = Modifier.size(width = 150.dp, height = 35.dp)
+                    ) {
+                        Text(text = "LOG IN HERE")
+                    }
+                }
+
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(all = 10.dp)
+                    ) {
+                        Text(
+                            text = "Full Name",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(start = 45.dp, top = 160.dp)
+                        )
+                        OutlinedTextField(value = inputFullName,
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            onValueChange = { text ->
+                                inputFullName = text
+                            })
+                        Text(
+                            text = "Email",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(start = 45.dp)
+                        )
+                        OutlinedTextField(value = inputEmail,
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            onValueChange = { text ->
+                                inputEmail = text
+                            })
+                        Text(
+                            text = "Password",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(start = 45.dp)
+                        )
+                        OutlinedTextField(value = inputPassword,
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            onValueChange = { text ->
+                                inputPassword = text
+                            })
+                    }
+
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Button(
+                            onClick = {
+                                userCreation(inputEmail, inputPassword, inputFullName)
+                                inputEmail = ""
+                                inputPassword = ""
+                                inputFullName = ""
+                            }, modifier = Modifier.size(width = 250.dp, height = 50.dp)
+                        ) {
+                            Text(text = "Sign Up", fontSize = 25.sp)
+                        }
+                    }
                 }
             }
         }
+
     }
 
     @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode")

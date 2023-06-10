@@ -47,167 +47,175 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @SuppressLint("InvalidColorHexValue")
 @Composable
 fun ProfileScreen() {
-    val viewModel = viewModel<UserViewModel>()
-    val hasLoaded by viewModel.loading.collectAsState()
+    AppTheme {
+        Surface {
+            val viewModel = viewModel<UserViewModel>()
+            val hasLoaded by viewModel.loading.collectAsState()
 
-    var FullName by remember {
-        mutableStateOf("")
-    }
-    var Email by remember {
-        mutableStateOf("")
-    }
-    var Status by remember {
-        mutableStateOf("")
-    }
+            var FullName by remember {
+                mutableStateOf("")
+            }
+            var Email by remember {
+                mutableStateOf("")
+            }
+            var Status by remember {
+                mutableStateOf("")
+            }
 
 //    val context = LocalContext.current
 //    FirebaseApp.initializeApp(context)
 
-    val user = Firebase.auth.currentUser
+            val user = Firebase.auth.currentUser
 
 
-    if (hasLoaded) {
-        val currentRealtimeUser = viewModel.viewModelUser.value
+            if (hasLoaded) {
+                val currentRealtimeUser = viewModel.viewModelUser.value
 
-        FullName = currentRealtimeUser.userFullName.toString()
+                FullName = currentRealtimeUser.userFullName.toString()
 
-        Email = currentRealtimeUser.userEmail.toString()
+                Email = currentRealtimeUser.userEmail.toString()
 
-        Status = currentRealtimeUser.userStatus.toString()
+                Status = currentRealtimeUser.userStatus.toString()
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Log.d("Profile Screen", "The profile screen calls code now")
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Log.d("Profile Screen", "The profile screen calls code now")
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.fillMaxSize()
+                    ) {
 
-                Text(
-                    text = "PROFILE",
-                    fontSize = 50.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.offset(x = 0.dp, y = -10.dp)/*.padding(bottom = 110.dp)*/
-                )
+                        Text(
+                            text = "PROFILE",
+                            fontSize = 50.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.offset(
+                                x = 0.dp, y = -10.dp
+                            )/*.padding(bottom = 110.dp)*/
+                        )
 
-                Image(
-                    painter = painterResource(id = R.drawable.avatarcolor),
-                    contentDescription = "null",
-                    // crop the image if it's not a square
-                    modifier = Modifier
+                        Image(
+                            painter = painterResource(id = R.drawable.avatarcolor),
+                            contentDescription = "null",
+                            // crop the image if it's not a square
+                            modifier = Modifier
 
-                        .size(150.dp)
-                        .clip(CircleShape)                       // clip to the circle shape
-                        .border(5.dp, Color.DarkGray, CircleShape)
-                        .offset(x = 0.dp, y = -2.dp)// add a border (optional)
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top = 2.dp)
+                                .size(150.dp)
+                                .clip(CircleShape)                       // clip to the circle shape
+                                .border(5.dp, Color.DarkGray, CircleShape)
+                                .offset(x = 0.dp, y = -2.dp)// add a border (optional)
+                                .align(Alignment.CenterHorizontally)
+                                .padding(top = 2.dp)
 
-                )
+                        )
 
 
-                Text(
-                    text = "Account Details:",
-                    fontSize = 30.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier/*.offset(x = -80.dp, y = 0.dp)*/.padding(bottom = 25.dp)
+                        Text(
+                            text = "Account Details:",
+                            fontSize = 30.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier/*.offset(x = -80.dp, y = 0.dp)*/.padding(bottom = 25.dp)
 
-                )
+                        )
 
-                Row {
+                        Row {
 
-                    Text(
-                        text = "NAME:",
-                        fontSize = 25.sp,
-                        modifier = Modifier.padding(top = 10.dp),
-                    )
-                    TextField(
+                            Text(
+                                text = "NAME:",
+                                fontSize = 25.sp,
+                                modifier = Modifier.padding(top = 10.dp),
+                            )
+                            TextField(
 
-                        value = FullName,
-                        onValueChange = {},
-                        shape = CircleShape,
-                        modifier = Modifier
-                            .padding(bottom = 30.dp)
-                            .absolutePadding(25.dp)
-                    )
+                                value = FullName,
+                                onValueChange = {},
+                                shape = CircleShape,
+                                modifier = Modifier
+                                    .padding(bottom = 30.dp)
+                                    .absolutePadding(25.dp)
+                            )
 
+                        }
+
+                        Row {
+
+                            Text(
+                                text = "EMAIL:",
+                                fontSize = 25.sp,
+                                modifier = Modifier.padding(top = 10.dp),
+                            )
+                            TextField(
+                                value = Email,
+                                onValueChange = {},
+                                shape = CircleShape,
+                                modifier = Modifier
+                                    .padding(bottom = 30.dp)
+                                    .absolutePadding(25.dp)
+
+                            )
+                        }
+
+                        Row {
+
+                            Text(
+                                text = "STATUS:",
+                                fontSize = 25.sp,
+                                modifier = Modifier.padding(top = 10.dp),
+                            )
+
+                            TextField(
+                                value = Status,
+                                onValueChange = {},
+                                shape = CircleShape,/*colors = TextFieldDefaults.textFieldColors(Color.Cyan),*/
+                                modifier = Modifier
+                                    .padding(bottom = 30.dp)
+                                    .absolutePadding(15.dp)
+
+                            )
+
+                        }
+
+
+                        Row {
+                            Image(
+                                painter = painterResource(id = R.drawable.logo),
+                                contentDescription = "null",
+
+
+                                // crop the image if it's not a square
+                                modifier = Modifier
+
+                                    .size(150.dp) // clip to the circle shape
+                                    .border(10.dp, Color.Gray)
+                                    .offset(x = 0.dp, y = 0.dp)// add a border (optional)
+                                    .padding(top = 2.dp)
+
+                            )
+
+                        }
+
+                    }
                 }
+            } else {
 
-                Row {
 
-                    Text(
-                        text = "EMAIL:",
-                        fontSize = 25.sp,
-                        modifier = Modifier.padding(top = 10.dp),
-                    )
-                    TextField(
-                        value = Email,
-                        onValueChange = {},
-                        shape = CircleShape,
-                        modifier = Modifier
-                            .padding(bottom = 30.dp)
-                            .absolutePadding(25.dp)
-
-                    )
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    CircularProgressBar(hasLoaded)
                 }
-
-                Row {
-
-                    Text(
-                        text = "STATUS:",
-                        fontSize = 25.sp,
-                        modifier = Modifier.padding(top = 10.dp),
-                    )
-
-                    TextField(
-                        value = Status,
-                        onValueChange = {},
-                        shape = CircleShape,/*colors = TextFieldDefaults.textFieldColors(Color.Cyan),*/
-                        modifier = Modifier
-                            .padding(bottom = 30.dp)
-                            .absolutePadding(15.dp)
-
-                    )
-
-                }
-
-
-                Row {
-                    Image(
-                        painter = painterResource(id = R.drawable.logo),
-                        contentDescription = "null",
-
-
-                        // crop the image if it's not a square
-                        modifier = Modifier
-
-                            .size(150.dp) // clip to the circle shape
-                            .border(10.dp, Color.Gray)
-                            .offset(x = 0.dp, y = 0.dp)// add a border (optional)
-                            .padding(top = 2.dp)
-
-                    )
-
-                }
-
             }
         }
-    } else {
 
-
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            CircularProgressBar(hasLoaded)
-        }
     }
+
 }
 
 @Preview(
