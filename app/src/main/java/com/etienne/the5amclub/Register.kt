@@ -6,14 +6,21 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.lightColors
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -24,10 +31,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.etienne.the5amclub.ui.theme.AppTheme
+import com.etienne.the5amclub.ui.theme.md_theme_dark_surface
+import com.etienne.the5amclub.ui.theme.md_theme_light_surface
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -61,7 +73,7 @@ class Register : ComponentActivity() {
 
 
     private fun userCreation(
-        email: String, password: String, firstname: String, starsign: String? = null
+        email: String, password: String, firstname: String
     ) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
@@ -73,8 +85,8 @@ class Register : ComponentActivity() {
                     "$token!",
                     Toast.LENGTH_SHORT,
                 ).show()
-                
-                addUserToRealtime(firstname, email, starsign)
+
+                addUserToRealtime(firstname, email)
 
                 Firebase.auth.signOut()
 
@@ -99,10 +111,10 @@ class Register : ComponentActivity() {
     }
 
 
-    private fun addUserToRealtime(firstname: String, email: String, starsign: String?) {
+    private fun addUserToRealtime(firstname: String, email: String) {
         val userID = userRef.push().key!!
 
-        val user = UserModel(userID, firstname, email, starsign)
+        val user = UserModel(userID, firstname, email, "Registered")
 
         userRef.child(userID).setValue(user).addOnCompleteListener {
             Toast.makeText(
@@ -132,6 +144,9 @@ class Register : ComponentActivity() {
                 }
                 var inputPassword by remember {
                     mutableStateOf("")
+                }
+                val showPassword = remember {
+                    mutableStateOf(false)
                 }
 
                 Column(
@@ -199,25 +214,40 @@ class Register : ComponentActivity() {
                             modifier = Modifier.padding(start = 45.dp)
                         )
                         OutlinedTextField(value = inputPassword,
+                            visualTransformation = if (showPassword.value) VisualTransformation.None else PasswordVisualTransformation(),
                             modifier = Modifier.align(Alignment.CenterHorizontally),
-                            onValueChange = { text ->
-                                inputPassword = text
-                            })
-                    }
+                            onValueChange = { text -> inputPassword = text },
+                            trailingIcon = {
+                                IconButton(onClick = {
+                                    showPassword.value = !showPassword.value
+                                }
+                                ) {
+                                    Icon(
+                                        tint = MaterialTheme.colorScheme.inverseSurface,
+                                        imageVector = Icons.Default.Visibility,
+                                        contentDescription = "View",
+                                    )
+                                }
+                            }
+                        )
 
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Button(
-                            onClick = {
-                                userCreation(inputEmail, inputPassword, inputFullName)
-                                inputEmail = ""
-                                inputPassword = ""
-                                inputFullName = ""
-                            }, modifier = Modifier.size(width = 250.dp, height = 50.dp)
+
+
+
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(text = "Sign Up", fontSize = 25.sp)
+                            Button(
+                                onClick = {
+                                    userCreation(inputEmail, inputPassword, inputFullName)
+                                    inputEmail = ""
+                                    inputPassword = ""
+                                    inputFullName = ""
+                                }, modifier = Modifier.size(width = 250.dp, height = 50.dp)
+                            ) {
+                                Text(text = "Sign Up", fontSize = 25.sp)
+                            }
                         }
                     }
                 }
@@ -225,7 +255,8 @@ class Register : ComponentActivity() {
         }
     }
 
-    @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode")
+
+    @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true, name = "Dark Mode")
     @Composable
     fun RegisterPreview() {
         AppTheme {
