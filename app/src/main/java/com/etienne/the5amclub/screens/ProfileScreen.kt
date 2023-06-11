@@ -1,6 +1,7 @@
 package com.etienne.the5amclub.screens
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
@@ -29,15 +31,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.etienne.the5amclub.LogIn
 import com.etienne.the5amclub.R
+import com.etienne.the5amclub.Register
 import com.etienne.the5amclub.UserViewModel
 import com.etienne.the5amclub.ui.theme.AppTheme
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 //@OptIn(ExperimentalCoroutinesApi::class)
@@ -64,6 +72,16 @@ fun ProfileScreen(
             }
             var loaded by remember {
                 mutableStateOf(false)
+            }
+            var login by remember {
+                mutableStateOf(false)
+            }
+
+            if (login) {
+                Firebase.auth.signOut()
+                val context = LocalContext.current
+                val intent = Intent(context, LogIn::class.java)
+                context.startActivity(intent)
             }
 
             if (isPreview == true) {
@@ -205,13 +223,18 @@ fun ProfileScreen(
                                 // crop the image if it's not a square
                                 modifier = Modifier
 
-                                    .size(150.dp) // clip to the circle shape
+                                    .size(80.dp) // clip to the circle shape
                                     .border(10.dp, Color.Gray)
                                     .offset(x = 0.dp, y = 0.dp)// add a border (optional)
                                     .padding(top = 2.dp)
 
                             )
 
+                        }
+                        Button(onClick = {
+                            login = true
+                        }) {
+                            Text(text = "Log Out")
                         }
 
                     }

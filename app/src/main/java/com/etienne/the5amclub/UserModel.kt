@@ -4,7 +4,6 @@ data class UserModel(
     var userID: String? = null,
     var userFullName: String? = null,
     var userEmail: String? = null,
-    var userStarSign: String? = null,
     var userStatus: String? = null,
 )
 

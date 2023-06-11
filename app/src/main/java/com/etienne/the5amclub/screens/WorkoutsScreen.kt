@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -161,11 +162,13 @@ fun WorkoutsScreen() {
 @Composable
 fun WorkoutBlock(workout: Workout) {
     AppTheme {
-        Surface (contentColor = Color.Black) {
+        Surface(contentColor = MaterialTheme.colorScheme.surface) {
             val viewModel = viewModel<WorkoutsViewModel>()
 
             Card(
-                modifier = Modifier.fillMaxWidth(), elevation = 4.dp, backgroundColor = md_theme_dark_secondary
+                modifier = Modifier.fillMaxWidth(),
+                elevation = 4.dp,
+                backgroundColor = MaterialTheme.colorScheme.secondary
             ) {
                 ConstraintLayout(
                     modifier = Modifier.padding(16.dp)
@@ -191,6 +194,7 @@ fun WorkoutBlock(workout: Workout) {
                         bottom.linkTo(parent.bottom)
                     }) {
                         Icon(
+                            tint = MaterialTheme.colorScheme.inverseSurface,
                             imageVector = Icons.Default.Visibility,
                             contentDescription = "View",
                         )
