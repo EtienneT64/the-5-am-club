@@ -49,7 +49,7 @@ import java.util.TreeMap
 data class Workout(val title: String)
 
 val workoutsList = listOf(
-    Workout("Press-ups"), Workout("Workout 2"), Workout("Workout 3")
+    Workout("Press-ups"), Workout("Step-Ups"), Workout("Superman")
 )
 
 data class DBWorkout(

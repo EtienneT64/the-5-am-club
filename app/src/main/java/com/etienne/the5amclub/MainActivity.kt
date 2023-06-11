@@ -9,9 +9,8 @@ import androidx.activity.viewModels
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.delay
 
-//TODO Add back BottomNavBarTheme
-//import com.etienne.the5amclub.ui.theme.BottomNavBarTheme
 
 class MainActivity : ComponentActivity() {
     private val viewModel: UserViewModel by viewModels()
@@ -20,6 +19,8 @@ class MainActivity : ComponentActivity() {
 
         FirebaseApp.initializeApp(this)
         val user = Firebase.auth.currentUser
+
+        //Firebase.auth.signOut()
 
         //If the user object is null, that means there is no current user, so we should point them to signup or login
         if (user != null) {
