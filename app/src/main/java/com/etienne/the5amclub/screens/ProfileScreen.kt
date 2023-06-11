@@ -37,11 +37,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.etienne.the5amclub.LogIn
 import com.etienne.the5amclub.R
-import com.etienne.the5amclub.Register
 import com.etienne.the5amclub.UserViewModel
 import com.etienne.the5amclub.ui.theme.AppTheme
 import com.google.firebase.auth.ktx.auth
