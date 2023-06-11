@@ -194,7 +194,7 @@ fun WorkoutBlock(workout: Workout) {
                         bottom.linkTo(parent.bottom)
                     }) {
                         Icon(
-                            tint = MaterialTheme.colorScheme.inverseSurface,
+                            tint = MaterialTheme.colorScheme.background,
                             imageVector = Icons.Default.Visibility,
                             contentDescription = "View",
                         )
