@@ -30,12 +30,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.etienne.the5amclub.ui.theme.AppTheme
+import com.etienne.the5amclub.ui.theme.md_theme_dark_secondary
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -159,11 +161,11 @@ fun WorkoutsScreen() {
 @Composable
 fun WorkoutBlock(workout: Workout) {
     AppTheme {
-        Surface {
+        Surface (contentColor = Color.Black) {
             val viewModel = viewModel<WorkoutsViewModel>()
 
             Card(
-                modifier = Modifier.fillMaxWidth(), elevation = 4.dp
+                modifier = Modifier.fillMaxWidth(), elevation = 4.dp, backgroundColor = md_theme_dark_secondary
             ) {
                 ConstraintLayout(
                     modifier = Modifier.padding(16.dp)
