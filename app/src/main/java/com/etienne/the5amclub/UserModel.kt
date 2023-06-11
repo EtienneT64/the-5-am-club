@@ -18,16 +18,12 @@ class UserModel(
     private lateinit var userRef: DatabaseReference
     private lateinit var tempUser: UserModel
 
-
-
     fun getUserObject(email: String): UserModel = runBlocking{
-        /*FirebaseApp.initializeApp(this)*/
+//        FirebaseApp.initializeApp(this)
         var userObject = getCurrentRealtimeUser(email)
         return@runBlocking userObject
 
     }
-
-
 
 
     private suspend fun getCurrentRealtimeUser(email: String): UserModel {

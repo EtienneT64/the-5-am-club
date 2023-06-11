@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.etienne.the5amclub.components.ClubCard
 
 
 @Composable
@@ -43,7 +44,9 @@ fun HomeScreen() {
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+
         }
+        ClubCard (onClick = {})
     }
 
 }

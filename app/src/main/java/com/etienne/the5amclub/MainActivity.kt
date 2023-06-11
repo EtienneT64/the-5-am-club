@@ -21,6 +21,17 @@ class MainActivity : ComponentActivity() {
         FirebaseApp.initializeApp(this)
 
         //Testing Code START
+        val mappy = mapOf("one" to mapOf("two" to 2))
+        var stringToMap =" {one={two=2}}"
+        stringToMap = mappy["one"].toString()
+        stringToMap = stringToMap.replace("{", "")
+        stringToMap = stringToMap.replace("}", "")
+
+        val map = stringToMap.split("=")
+
+        Log.d("Map", map.toString())
+
+
         Handler(Looper.getMainLooper()).postDelayed({
             val user = Firebase.auth.currentUser
 
