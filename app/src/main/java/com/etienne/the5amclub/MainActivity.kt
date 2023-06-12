@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.delay
 
 
 class MainActivity : ComponentActivity() {

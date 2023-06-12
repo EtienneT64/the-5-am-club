@@ -15,22 +15,22 @@ fun BottomNavGraph(navController: NavHostController) {
 
 
     NavHost(
-                navController = navController,
-                startDestination = BottomBarScreen.Home.route
-            ) {
-                composable(route = BottomBarScreen.Home.route) {
-                    HomeScreen()
-                }
-                composable(route = BottomBarScreen.Profile.route) {
-                    ProfileScreen()
-                }
-                composable(route = BottomBarScreen.Workouts.route) {
-                    WorkoutsScreen()
-                }
-                composable(route = BottomBarScreen.Utilities.route) {
-                    UtilitiesScreen()
-                }
-            }
+        navController = navController,
+        startDestination = BottomBarScreen.Home.route
+    ) {
+        composable(route = BottomBarScreen.Home.route) {
+            HomeScreen()
+        }
+        composable(route = BottomBarScreen.Profile.route) {
+            ProfileScreen()
+        }
+        composable(route = BottomBarScreen.Workouts.route) {
+            WorkoutsScreen()
+        }
+        composable(route = BottomBarScreen.Utilities.route) {
+            UtilitiesScreen()
+        }
+    }
 
 
 }
