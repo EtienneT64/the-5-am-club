@@ -31,8 +31,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -99,60 +101,74 @@ fun WorkoutsScreen() {
                     }
                 })
             }
+            // Loads individual workout
         } else {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                val workoutName = viewModel.workoutName
+            Surface {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(25.dp)
 
-                var name by remember {
-                    mutableStateOf("")
-                }
+                ) {
+                    val workoutName = viewModel.workoutName
 
-                var benefits by remember {
-                    mutableStateOf("")
-                }
-
-                var reps by remember {
-                    mutableStateOf("")
-                }
-
-                var steps by remember {
-                    mutableStateOf(mapOf("" to ""))
-                }
-
-                val workoutRef =
-                    Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
-                        .getReference("Workouts")
-
-                workoutRef.child(workoutName).addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            val tempWorkout = snapshot.getValue(DBWorkout::class.java)!!
-
-                            name = tempWorkout.WorkoutName.toString()
-                            benefits = tempWorkout.Benefits.toString()
-                            reps = tempWorkout.Reps.toString()
-                            steps = tempWorkout.Steps!!
-                        }
+                    var name by remember {
+                        mutableStateOf("")
                     }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        Log.d("WorkoutDB", "Workout details could not be called")
+                    var benefits by remember {
+                        mutableStateOf("")
                     }
-                })
 
-                Text(text = "Workout name: $name")
-                Text(text = "Benefits: $benefits")
-                Text(text = "Reps: $reps")
+                    var reps by remember {
+                        mutableStateOf("")
+                    }
 
-                val sortedSteps = TreeMap(steps)
-                sortedSteps.forEach { step ->
-                    Text(text = "${step.key}: ${step.value}")
+                    var steps by remember {
+                        mutableStateOf(mapOf("" to ""))
+                    }
+
+                    val workoutRef =
+                        Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
+                            .getReference("Workouts")
+
+                    workoutRef.child(workoutName)
+                        .addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.exists()) {
+                                    val tempWorkout = snapshot.getValue(DBWorkout::class.java)!!
+
+                                    name = tempWorkout.WorkoutName.toString()
+                                    benefits = tempWorkout.Benefits.toString()
+                                    reps = tempWorkout.Reps.toString()
+                                    steps = tempWorkout.Steps!!
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Log.d("WorkoutDB", "Workout details could not be called")
+                            }
+                        })
+
+
+                    Text(text = "Workout name:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "$name")
+                    Text(text = "Benefits:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "Benefits: $benefits")
+                    Text(text = "Reps:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "Reps: $reps")
+                    Text(text = "Steps:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+
+
+                    val sortedSteps = TreeMap(steps)
+                    sortedSteps.forEach { step ->
+                        Text(text = "${step.key}: ${step.value}")
+                    }
                 }
             }
+
         }
     }
 }
