@@ -2,10 +2,14 @@ package com.etienne.the5amclub
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -40,7 +44,9 @@ fun BottomBar(navController: NavHostController) {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
 
-            BottomNavigation {
+            BottomNavigation(
+                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+            ) {
                 screens.forEach { screen ->
                     AddItem(
                         screen = screen,
@@ -60,17 +66,26 @@ fun RowScope.AddItem(
 ) {
     AppTheme {
         Surface {
-            BottomNavigationItem(label = {
-                Text(text = screen.title)
-            }, icon = {
-                Icon(
-                    imageVector = screen.icon, contentDescription = "Navigation Icon"
+            BottomNavigationItem(
+                modifier = Modifier.background(Color.Blue),
+                selectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                unselectedContentColor = Color.Black,
+                label = {
+                    Text(text = screen.title)
+                },
+                icon = {
+                    Icon(
+                        imageVector = screen.icon, contentDescription = "Navigation Icon"
+                    )
+                },
+                selected = currentDestination?.hierarchy?.any {
+                    it.route == screen.route
+                } == true,
+                onClick = {
+                    navController.navigate(screen.route)
+                },
+
                 )
-            }, selected = currentDestination?.hierarchy?.any {
-                it.route == screen.route
-            } == true, onClick = {
-                navController.navigate(screen.route)
-            })
         }
     }
 }
