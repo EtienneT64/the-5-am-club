@@ -9,7 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -67,9 +66,9 @@ fun RowScope.AddItem(
     AppTheme {
         Surface {
             BottomNavigationItem(
-                modifier = Modifier.background(Color.Blue),
+                modifier = Modifier.background(MaterialTheme.colorScheme.surfaceVariant),
                 selectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                unselectedContentColor = Color.Black,
+                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 label = {
                     Text(text = screen.title)
                 },
