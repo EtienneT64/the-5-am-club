@@ -1,7 +1,6 @@
 package com.etienne.the5amclub.screens
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
@@ -32,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -45,7 +43,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.TreeMap
-
 
 data class Workout(val title: String)
 
@@ -60,18 +57,15 @@ data class DBWorkout(
     val Steps: Map<String, String>? = null
 )
 
-
 class WorkoutsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             AppTheme {
                 Surface {
                     WorkoutsScreen()
                 }
             }
-
         }
     }
 }
@@ -81,8 +75,8 @@ class WorkoutsActivity : AppCompatActivity() {
 @Composable
 fun WorkoutsScreen() {
     val viewModel = viewModel<WorkoutsViewModel>()
+    // Variable for loading a workout when clicked
     val pageBool = viewModel.pageBool
-
     AppTheme {
         if (!pageBool) {
             Surface {
@@ -110,36 +104,28 @@ fun WorkoutsScreen() {
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(25.dp)
-
                 ) {
                     val workoutName = viewModel.workoutName
-
                     var name by remember {
                         mutableStateOf("")
                     }
-
                     var benefits by remember {
                         mutableStateOf("")
                     }
-
                     var reps by remember {
                         mutableStateOf("")
                     }
-
                     var steps by remember {
                         mutableStateOf(mapOf("" to ""))
                     }
-
                     val workoutRef =
                         Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
                             .getReference("Workouts")
-
                     workoutRef.child(workoutName)
                         .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (snapshot.exists()) {
                                     val tempWorkout = snapshot.getValue(DBWorkout::class.java)!!
-
                                     name = tempWorkout.WorkoutName.toString()
                                     benefits = tempWorkout.Benefits.toString()
                                     reps = tempWorkout.Reps.toString()
@@ -151,8 +137,7 @@ fun WorkoutsScreen() {
                                 Log.d("WorkoutDB", "Workout details could not be called")
                             }
                         })
-
-
+                    // Structure of loaded workout
                     Text(text = "Workout name:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                     Text(text = "$name")
                     Text(text = "Benefits:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
@@ -160,15 +145,12 @@ fun WorkoutsScreen() {
                     Text(text = "Reps:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                     Text(text = "Reps: $reps")
                     Text(text = "Steps:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-
-
                     val sortedSteps = TreeMap(steps)
                     sortedSteps.forEach { step ->
                         Text(text = "${step.key}: ${step.value}")
                     }
                 }
             }
-
         }
     }
 }
@@ -178,7 +160,6 @@ fun WorkoutBlock(workout: Workout) {
     AppTheme {
         Surface(contentColor = MaterialTheme.colorScheme.surface) {
             val viewModel = viewModel<WorkoutsViewModel>()
-
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = 4.dp,
@@ -188,7 +169,6 @@ fun WorkoutBlock(workout: Workout) {
                     modifier = Modifier.padding(16.dp)
                 ) {
                     val (text, icon) = createRefs()
-
                     Text(text = workout.title, modifier = Modifier.constrainAs(text) {
                         start.linkTo(parent.start)
                         top.linkTo(parent.top)
@@ -196,11 +176,10 @@ fun WorkoutBlock(workout: Workout) {
                         end.linkTo(icon.start)
                         width = androidx.constraintlayout.compose.Dimension.fillToConstraints
                     })
-
+                    // onClick event to load workout when eye icion is clicked
                     IconButton(onClick = {
                         viewModel.changeWorkout(workout.title.replace(" ", ""))
                         viewModel.setTrue()
-
                         // Handle view icon click here
                     }, modifier = Modifier.constrainAs(icon) {
                         end.linkTo(parent.end)
@@ -219,31 +198,15 @@ fun WorkoutBlock(workout: Workout) {
     }
 }
 
-
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, name = "Dark Mode"
-)
-@Composable
-fun WorkoutsScreenPreview() {
-    AppTheme {
-        Surface {
-            WorkoutsScreen()
-        }
-    }
-}
-
-
 class WorkoutsViewModel : ViewModel() {
+    // ViewModel class to change screens when workout is clicked
     var pageBool by mutableStateOf(false)
     var workoutName by mutableStateOf("")
-
     fun setTrue() {
         pageBool = true
     }
-
     fun changeWorkout(workout: String) {
         workoutName = workout
     }
-
 }
 
