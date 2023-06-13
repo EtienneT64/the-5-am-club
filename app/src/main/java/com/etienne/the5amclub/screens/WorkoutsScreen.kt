@@ -118,6 +118,7 @@ fun WorkoutsScreen() {
                     var steps by remember {
                         mutableStateOf(mapOf("" to ""))
                     }
+                    // Database connection
                     val workoutRef =
                         Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
                             .getReference("Workouts")
@@ -125,6 +126,7 @@ fun WorkoutsScreen() {
                         .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (snapshot.exists()) {
+                                    // Load information from database
                                     val tempWorkout = snapshot.getValue(DBWorkout::class.java)!!
                                     name = tempWorkout.WorkoutName.toString()
                                     benefits = tempWorkout.Benefits.toString()
