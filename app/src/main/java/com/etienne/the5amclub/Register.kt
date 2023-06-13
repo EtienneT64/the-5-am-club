@@ -44,7 +44,6 @@ import com.google.firebase.ktx.Firebase
 class Register : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var userRef: DatabaseReference
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,18 +51,13 @@ class Register : ComponentActivity() {
         userRef =
             Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app")
                 .getReference("users")
-
-
         setContent {
             AppTheme {
                 Surface {
                     RegisterScreen()
                 }
-
             }
-
         }
-
     }
 
 
@@ -215,20 +209,14 @@ class Register : ComponentActivity() {
                             trailingIcon = {
                                 IconButton(onClick = {
                                     showPassword.value = !showPassword.value
-                                }
-                                ) {
+                                }) {
                                     Icon(
                                         tint = MaterialTheme.colorScheme.inverseSurface,
                                         imageVector = Icons.Default.Visibility,
                                         contentDescription = "View",
                                     )
                                 }
-                            }
-                        )
-
-
-
-
+                            })
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.fillMaxWidth()
