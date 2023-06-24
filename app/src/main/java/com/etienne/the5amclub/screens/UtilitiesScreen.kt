@@ -1,6 +1,7 @@
 package com.etienne.the5amclub.screens
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -174,24 +175,26 @@ fun UtilitiesScreen() {
                             displayBMI =
                                 BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
 
-                            if(displayBMI.toInt() <16){
-                                classification  = "Severe Thinness"
+
+                            Log.d("Bug", "Here")
+                            if (displayBMI.toDouble() < 16.0) {
+                                classification = "Severe Thinness"
                             }
-                            if(displayBMI.toInt() in 16..17){
-                                classification  = "Moderate Thinness"
+                            if (displayBMI.toDouble() in 16.0..17.0) {
+                                classification = "Moderate Thinness"
                             }
-                            if(displayBMI.toInt() in 17..18){
-                                classification  = "Mild Thinness"
+                            if (displayBMI.toDouble() in 17.0..18.0) {
+                                classification = "Mild Thinness"
                             }
 
-                            if(displayBMI.toInt() in 18..25){
-                                classification  = "Normal"
+                            if (displayBMI.toDouble() in 18.0..25.0) {
+                                classification = "Normal"
                             }
-                            if(displayBMI.toInt() in 25..30){
-                                classification  = "Overweight"
+                            if (displayBMI.toDouble() in 25.0..30.0) {
+                                classification = "Overweight"
                             }
-                            if(displayBMI.toInt() in 30..40){
-                                classification  = "Obese"
+                            if (displayBMI.toDouble() in 30.0..40.0) {
+                                classification = "Obese"
                             }
 
 
