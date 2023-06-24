@@ -48,6 +48,10 @@ fun UtilitiesScreen() {
             var displayBMI by remember {
                 mutableStateOf("")
             }
+
+            var classification by remember{
+                mutableStateOf("")
+            }
             Box(
                 contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize()
             )
@@ -63,7 +67,9 @@ fun UtilitiesScreen() {
                         modifier = Modifier.size(300.dp, 500.dp),
                         contentAlignment = Alignment.Center
                     ) {
+                        Row {
 
+                        }
                         Row {
                             Text(
                                 text = "Age",
@@ -141,6 +147,14 @@ fun UtilitiesScreen() {
                     text = "BMI Calculator",
                     fontSize = 50.sp,
                 )
+                Text(
+                    text = "Classification:",
+                    fontSize = 35.sp,
+                )
+                Text(
+                    text = classification,
+                    fontSize = 25.sp,
+                )
 
 
                 Column(
@@ -150,9 +164,7 @@ fun UtilitiesScreen() {
                         .fillMaxWidth()
                         .padding(top = 215.dp)
                 )
-
                 {
-
 
                 }
 
@@ -162,9 +174,30 @@ fun UtilitiesScreen() {
                             displayBMI =
                                 BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
 
+                            if(displayBMI.toInt() <16){
+                                classification  = "Severe Thinness"
+                            }
+                            if(displayBMI.toInt() in 16..17){
+                                classification  = "Moderate Thinness"
+                            }
+                            if(displayBMI.toInt() in 17..18){
+                                classification  = "Mild Thinness"
+                            }
+
+                            if(displayBMI.toInt() in 18..25){
+                                classification  = "Normal"
+                            }
+                            if(displayBMI.toInt() in 25..30){
+                                classification  = "Overweight"
+                            }
+                            if(displayBMI.toInt() in 30..40){
+                                classification  = "Obese"
+                            }
+
+
                         }, modifier = Modifier
                             .offset(x = 0.dp, y = 20.dp)
-                            .padding(top = 350.dp)
+                            .padding(top = 280.dp)
 
                     ) {
                         Text(
