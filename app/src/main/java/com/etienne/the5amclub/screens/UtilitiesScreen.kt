@@ -176,7 +176,7 @@ fun UtilitiesScreen() {
                                 BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
 
 
-                            Log.d("Bug", "Here")
+
                             if (displayBMI.toDouble() < 16.0) {
                                 classification = "Severe Thinness"
                             }
