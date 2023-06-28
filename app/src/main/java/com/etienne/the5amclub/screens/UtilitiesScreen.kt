@@ -76,7 +76,7 @@ fun UtilitiesScreen() {
                         Row {
                             Text(
                                 text = "Age",
-                                fontSize = 40.sp,
+                                fontSize = 30.sp,
                             )
                             TextField(
                                 colors = TextFieldDefaults.textFieldColors(
@@ -90,15 +90,12 @@ fun UtilitiesScreen() {
                                     .padding(bottom = 180.dp)
                                     .absolutePadding(70.dp)
                             )
-                            Text(
-                                text = "Yrs",
-                                fontSize = 30.sp,
-                            )
+
                         }
                         Row {
                             Text(
-                                text = "Height",
-                                fontSize = 40.sp,
+                                text = "Height (cm)",
+                                fontSize = 30.sp,
                             )
                             TextField(
                                 colors = TextFieldDefaults.textFieldColors(
@@ -112,19 +109,17 @@ fun UtilitiesScreen() {
                                     .padding(bottom = 30.dp)
                                     .absolutePadding(25.dp)
                             )
-                            Text(
-                                text = "cm",
-                                fontSize = 30.sp,
-                            )
+
 
                         }
 
                         Row {
                             Text(
-                                text = "Weight",
-                                fontSize = 40.sp,
+                                text = "Weight (kg)",
+                                fontSize = 30.sp,
                                 modifier = Modifier.padding(top = 120.dp)
                             )
+
                             TextField(
                                 colors = TextFieldDefaults.textFieldColors(
                                     focusedIndicatorColor = Color.Transparent,
@@ -137,10 +132,8 @@ fun UtilitiesScreen() {
                                     .padding(top = 120.dp)
                                     .absolutePadding(25.dp)
                             )
-                            Text(
-                                text = "kg",
-                                fontSize = 30.sp,
-                            )
+
+
 
                         }
                         Row {
@@ -188,7 +181,7 @@ fun UtilitiesScreen() {
                 )
                 Text(
                     text = classification,
-                    fontSize = 25.sp,
+                    fontSize = 15.sp,
                 )
 
 
