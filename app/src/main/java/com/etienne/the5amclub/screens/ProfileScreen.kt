@@ -121,15 +121,6 @@ fun ProfileScreen(
                         modifier = Modifier.fillMaxSize()
                     ) {
 
-                     /*   Text(
-                            text = "PROFILE",
-                            fontSize = 50.sp,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.offset(
-                                x = 0.dp, y = -10.dp
-                            )*//*.padding(bottom = 110.dp)*//*
-                        )*/
-
                         Image(
                             painter = painterResource(id = R.drawable.avatarcolor),
                             contentDescription = "null",
