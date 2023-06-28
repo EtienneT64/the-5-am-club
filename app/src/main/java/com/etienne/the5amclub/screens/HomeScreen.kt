@@ -42,7 +42,7 @@ fun HomeScreen() {
             ) {
                 Row {
                     Text(
-                        fontSize = 35.sp,
+                        fontSize = 50.sp,
                         textAlign = TextAlign.Center,
                         text = "Clubs",
                         fontWeight = FontWeight.Bold,
