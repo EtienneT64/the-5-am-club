@@ -1,6 +1,7 @@
 package com.etienne.the5amclub.screens
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,6 +51,10 @@ fun UtilitiesScreen() {
             var displayBMI by remember {
                 mutableStateOf("")
             }
+
+            var classification by remember{
+                mutableStateOf("")
+            }
             Box(
                 contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize()
             )
@@ -65,7 +70,9 @@ fun UtilitiesScreen() {
                         modifier = Modifier.size(300.dp, 500.dp),
                         contentAlignment = Alignment.Center
                     ) {
+                        Row {
 
+                        }
                         Row {
                             Text(
                                 text = "Age",
@@ -160,6 +167,14 @@ fun UtilitiesScreen() {
                     text = "BMI Calculator",
                     fontSize = 50.sp,
                 )
+                Text(
+                    text = "Classification:",
+                    fontSize = 35.sp,
+                )
+                Text(
+                    text = classification,
+                    fontSize = 25.sp,
+                )
 
 
                 Column(
@@ -169,9 +184,7 @@ fun UtilitiesScreen() {
                         .fillMaxWidth()
                         .padding(top = 215.dp)
                 )
-
                 {
-
 
                 }
 
@@ -181,9 +194,32 @@ fun UtilitiesScreen() {
                             displayBMI =
                                 BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
 
+
+
+                            if (displayBMI.toDouble() < 16.0) {
+                                classification = "Severe Thinness"
+                            }
+                            if (displayBMI.toDouble() in 16.0..17.0) {
+                                classification = "Moderate Thinness"
+                            }
+                            if (displayBMI.toDouble() in 17.0..18.0) {
+                                classification = "Mild Thinness"
+                            }
+
+                            if (displayBMI.toDouble() in 18.0..25.0) {
+                                classification = "Normal"
+                            }
+                            if (displayBMI.toDouble() in 25.0..30.0) {
+                                classification = "Overweight"
+                            }
+                            if (displayBMI.toDouble() in 30.0..40.0) {
+                                classification = "Obese"
+                            }
+
+
                         }, modifier = Modifier
                             .offset(x = 0.dp, y = 20.dp)
-                            .padding(top = 350.dp)
+                            .padding(top = 280.dp)
 
                     ) {
                         Text(

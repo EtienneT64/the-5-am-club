@@ -21,7 +21,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -122,15 +121,6 @@ fun ProfileScreen(
                         modifier = Modifier.fillMaxSize()
                     ) {
 
-                        Text(
-                            text = "PROFILE",
-                            fontSize = 50.sp,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.offset(
-                                x = 0.dp, y = -10.dp
-                            )/*.padding(bottom = 110.dp)*/
-                        )
-
                         Image(
                             painter = painterResource(id = R.drawable.avatarcolor),
                             contentDescription = "null",
@@ -157,16 +147,9 @@ fun ProfileScreen(
 
                         Row {
 
-                            Text(
-                                text = "NAME:",
-                                fontSize = 25.sp,
-                                modifier = Modifier.padding(top = 10.dp),
-                            )
+
                             TextField(
-                                colors = TextFieldDefaults.textFieldColors(
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent
-                                ),
+
                                 value = FullName,
                                 onValueChange = {},
                                 shape = CircleShape,
@@ -178,48 +161,28 @@ fun ProfileScreen(
                         }
 
                         Row {
-                            Text(
-                                text = "EMAIL:",
-                                fontSize = 25.sp,
-                                modifier = Modifier.padding(top = 10.dp),
-                            )
+
+
                             TextField(
-                                colors = TextFieldDefaults.textFieldColors(
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent
-                                ),
                                 value = Email,
                                 onValueChange = {},
                                 shape = CircleShape,
                                 modifier = Modifier
                                     .padding(bottom = 30.dp)
                                     .absolutePadding(25.dp)
-
                             )
                         }
 
                         Row {
 
-                            Text(
-                                text = "STATUS:",
-                                fontSize = 25.sp,
-                                modifier = Modifier.padding(top = 10.dp),
-                            )
-
                             TextField(
-                                colors = TextFieldDefaults.textFieldColors(
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent
-                                ),
                                 value = Status,
                                 onValueChange = {},
                                 shape = CircleShape,/*colors = TextFieldDefaults.textFieldColors(Color.Cyan),*/
                                 modifier = Modifier
                                     .padding(bottom = 30.dp)
-                                    .absolutePadding(15.dp)
-
+                                    .absolutePadding(25.dp)
                             )
-
                         }
 
 
