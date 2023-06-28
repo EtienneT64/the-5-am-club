@@ -69,33 +69,31 @@ fun HomeScreen() {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
+                    modifier = Modifier.fillMaxSize()
 //            .background(brush2),
-            ) {
-                Row {
-                    Text(
-                        fontSize = 50.sp,
-                        textAlign = TextAlign.Center,
-                        text = "Clubs",
-                        fontWeight = FontWeight.Bold,
+                ) {
+                    Row {
+                        Text(
+                            fontSize = 50.sp,
+                            textAlign = TextAlign.Center,
+                            text = "Clubs",
+                            fontWeight = FontWeight.Bold,
 //                color = Color.White
                         )
 
                     }
                     LazyColumn {
                         item {
-                            Card(
-                                shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        viewModel.changeEvent("RunningClub")
-                                        clubBool = false
-                                    }
+                            Card(shape = MaterialTheme.shapes.small, modifier = Modifier
+                                .padding(
+                                    bottom = 6.dp,
+                                    top = 6.dp,
+                                )
+                                .fillMaxWidth()
+                                .clickable {
+                                    viewModel.changeEvent("RunningClub")
+                                    clubBool = false
+                                }
 
 
                             ) {
@@ -113,10 +111,7 @@ fun HomeScreen() {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(
-                                            top = 12.dp,
-                                            bottom = 12.dp,
-                                            start = 8.dp,
-                                            end = 8.dp
+                                            top = 12.dp, bottom = 12.dp, start = 8.dp, end = 8.dp
                                         )
                                 ) {
                                     Text(
@@ -132,17 +127,16 @@ fun HomeScreen() {
                             }
                         }
                         item {
-                            Card(
-                                shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        viewModel.changeEvent("WalkingClub")
-                                        clubBool = false
-                                    }
+                            Card(shape = MaterialTheme.shapes.small, modifier = Modifier
+                                .padding(
+                                    bottom = 6.dp,
+                                    top = 6.dp,
+                                )
+                                .fillMaxWidth()
+                                .clickable {
+                                    viewModel.changeEvent("WalkingClub")
+                                    clubBool = false
+                                }
 
 
                             ) {
@@ -160,10 +154,7 @@ fun HomeScreen() {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(
-                                            top = 12.dp,
-                                            bottom = 12.dp,
-                                            start = 8.dp,
-                                            end = 8.dp
+                                            top = 12.dp, bottom = 12.dp, start = 8.dp, end = 8.dp
                                         )
                                 ) {
                                     Text(
@@ -179,17 +170,16 @@ fun HomeScreen() {
                             }
                         }
                         item {
-                            Card(
-                                shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        viewModel.changeEvent("HikingClub")
-                                        clubBool = false
-                                    }
+                            Card(shape = MaterialTheme.shapes.small, modifier = Modifier
+                                .padding(
+                                    bottom = 6.dp,
+                                    top = 6.dp,
+                                )
+                                .fillMaxWidth()
+                                .clickable {
+                                    viewModel.changeEvent("HikingClub")
+                                    clubBool = false
+                                }
 
 
                             ) {
@@ -207,10 +197,7 @@ fun HomeScreen() {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(
-                                            top = 12.dp,
-                                            bottom = 12.dp,
-                                            start = 8.dp,
-                                            end = 8.dp
+                                            top = 12.dp, bottom = 12.dp, start = 8.dp, end = 8.dp
                                         )
                                 ) {
                                     Text(
@@ -226,23 +213,22 @@ fun HomeScreen() {
                             }
                         }
                         item {
-                            Card(
-                                shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        viewModel.changeEvent("Success Club")
-                                        clubBool = false
-                                    }
+                            Card(shape = MaterialTheme.shapes.small, modifier = Modifier
+                                .padding(
+                                    bottom = 6.dp,
+                                    top = 6.dp,
+                                )
+                                .fillMaxWidth()
+                                .clickable {
+                                    viewModel.changeEvent("Success Club")
+                                    clubBool = false
+                                }
 
 
                             ) {
                                 Column {
                                     Image(
-                                        painter = painterResource(id = R.drawable.padelclub),
+                                        painter = painterResource(id = R.drawable.successclub),
                                         contentDescription = null,
                                         modifier = Modifier
                                             .fillMaxWidth()
@@ -254,10 +240,7 @@ fun HomeScreen() {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(
-                                            top = 12.dp,
-                                            bottom = 12.dp,
-                                            start = 8.dp,
-                                            end = 8.dp
+                                            top = 12.dp, bottom = 12.dp, start = 8.dp, end = 8.dp
                                         )
                                 ) {
                                     Text(
@@ -273,17 +256,16 @@ fun HomeScreen() {
                             }
                         }
                         item {
-                            Card(
-                                shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        viewModel.changeEvent("FivesFootballClub")
-                                        clubBool = false
-                                    }
+                            Card(shape = MaterialTheme.shapes.small, modifier = Modifier
+                                .padding(
+                                    bottom = 6.dp,
+                                    top = 6.dp,
+                                )
+                                .fillMaxWidth()
+                                .clickable {
+                                    viewModel.changeEvent("FivesFootballClub")
+                                    clubBool = false
+                                }
 
 
                             ) {
@@ -301,10 +283,7 @@ fun HomeScreen() {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(
-                                            top = 12.dp,
-                                            bottom = 12.dp,
-                                            start = 8.dp,
-                                            end = 8.dp
+                                            top = 12.dp, bottom = 12.dp, start = 8.dp, end = 8.dp
                                         )
                                 ) {
                                     Text(
@@ -320,17 +299,16 @@ fun HomeScreen() {
                             }
                         }
                         item {
-                            Card(
-                                shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        viewModel.changeEvent("PadelClub")
-                                        clubBool = false
-                                    }
+                            Card(shape = MaterialTheme.shapes.small, modifier = Modifier
+                                .padding(
+                                    bottom = 6.dp,
+                                    top = 6.dp,
+                                )
+                                .fillMaxWidth()
+                                .clickable {
+                                    viewModel.changeEvent("PadelClub")
+                                    clubBool = false
+                                }
 
 
                             ) {
@@ -348,10 +326,7 @@ fun HomeScreen() {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(
-                                            top = 12.dp,
-                                            bottom = 12.dp,
-                                            start = 8.dp,
-                                            end = 8.dp
+                                            top = 12.dp, bottom = 12.dp, start = 8.dp, end = 8.dp
                                         )
                                 ) {
                                     Text(
@@ -431,9 +406,7 @@ fun ClubBlock() {
                     val context = LocalContext.current
                     val drawableId = remember(trimName) {
                         context.resources.getIdentifier(
-                            trimName,
-                            "drawable",
-                            context.packageName
+                            trimName, "drawable", context.packageName
                         )
                     }
 
@@ -451,18 +424,17 @@ fun ClubBlock() {
                         Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
                             .getReference("Events")
 
-                    eventRef.child(eventName)
-                        .addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                if (snapshot.exists()) {
-                                    val tempEvent = snapshot.getValue(DBEvent::class.java)!!
+                    eventRef.child(eventName).addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                val tempEvent = snapshot.getValue(DBEvent::class.java)!!
 
-                                    descrip = tempEvent.ClubDescrip.toString()
-                                    cost = tempEvent.Cost.toString()
-                                    name = tempEvent.EventName.toString()
-                                    location = tempEvent.Location.toString()
-                                    if (name == "Success Club") {
-                                        whentime = tempEvent.When.toString()
+                                descrip = tempEvent.ClubDescrip.toString()
+                                cost = tempEvent.Cost.toString()
+                                name = tempEvent.EventName.toString()
+                                location = tempEvent.Location.toString()
+                                if (name == "Success Club") {
+                                    whentime = tempEvent.When.toString()
                                     } else {
                                         times = tempEvent.StartTimes!!
                                     }
@@ -501,13 +473,9 @@ fun ClubBlock() {
                     Text(text = "${step.key}: ${step.value}")
                 }*/
 
-                    Button(
-                        modifier = Modifier.size(width = 200.dp, height = 50.dp),
-                        onClick = {}
-                    ) {
+                    Button(modifier = Modifier.size(width = 200.dp, height = 50.dp), onClick = {}) {
                         Text(
-                            text = "Subscribe",
-                            fontSize = 25.sp
+                            text = "Subscribe", fontSize = 25.sp
                         )
                     }
                 }
