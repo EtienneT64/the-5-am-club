@@ -1,46 +1,41 @@
 package com.etienne.the5amclub
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.etienne.the5amclub.ui.theme.The5amclubTheme
+import androidx.activity.viewModels
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            The5amclubTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+
+        FirebaseApp.initializeApp(this)
+        val user = Firebase.auth.currentUser
+
+        //Firebase.auth.signOut()
+
+        //If the user object is null, that means there is no current user, so we should point them to signup or login
+        if (user != null) {
+            Log.d("OnCreation", user.email.toString())
+
+            //Calling the viewModel like this initializes the view model
+            //On initial is when it pulls from the database
+            viewModel
+
+            setContent {
+                MainScreen()
             }
+        } else {
+            Log.d("Send User to LogIn", "There is no current user")
+            val intent = Intent(this@MainActivity, LogIn::class.java)
+            startActivity(intent)
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    The5amclubTheme {
-        Greeting("Android")
     }
 }
