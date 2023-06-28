@@ -21,6 +21,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -162,7 +163,10 @@ fun ProfileScreen(
                                 modifier = Modifier.padding(top = 10.dp),
                             )
                             TextField(
-
+                                colors = TextFieldDefaults.textFieldColors(
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent
+                                ),
                                 value = FullName,
                                 onValueChange = {},
                                 shape = CircleShape,
@@ -174,13 +178,16 @@ fun ProfileScreen(
                         }
 
                         Row {
-
                             Text(
                                 text = "EMAIL:",
                                 fontSize = 25.sp,
                                 modifier = Modifier.padding(top = 10.dp),
                             )
                             TextField(
+                                colors = TextFieldDefaults.textFieldColors(
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent
+                                ),
                                 value = Email,
                                 onValueChange = {},
                                 shape = CircleShape,
@@ -200,6 +207,10 @@ fun ProfileScreen(
                             )
 
                             TextField(
+                                colors = TextFieldDefaults.textFieldColors(
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent
+                                ),
                                 value = Status,
                                 onValueChange = {},
                                 shape = CircleShape,/*colors = TextFieldDefaults.textFieldColors(Color.Cyan),*/
