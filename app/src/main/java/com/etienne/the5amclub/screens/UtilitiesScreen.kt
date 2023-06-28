@@ -90,6 +90,10 @@ fun UtilitiesScreen() {
                                     .padding(bottom = 180.dp)
                                     .absolutePadding(70.dp)
                             )
+                            Text(
+                                text = "Yrs",
+                                fontSize = 30.sp,
+                            )
                         }
                         Row {
                             Text(
@@ -107,6 +111,10 @@ fun UtilitiesScreen() {
                                 modifier = Modifier
                                     .padding(bottom = 30.dp)
                                     .absolutePadding(25.dp)
+                            )
+                            Text(
+                                text = "cm",
+                                fontSize = 30.sp,
                             )
 
                         }
@@ -128,6 +136,10 @@ fun UtilitiesScreen() {
                                 modifier = Modifier
                                     .padding(top = 120.dp)
                                     .absolutePadding(25.dp)
+                            )
+                            Text(
+                                text = "kg",
+                                fontSize = 30.sp,
                             )
 
                         }
@@ -200,23 +212,23 @@ fun UtilitiesScreen() {
 
 
                             if (displayBMI.toDouble() < 16.0) {
-                                classification = "Severe Thinness"
+                                classification = "Severe Thinness - we recommend you urgently up your calorie intake. Focus less on cardio and begin muscle building exercises like squats, push ups and press ups."
                             }
                             if (displayBMI.toDouble() in 16.0..17.0) {
-                                classification = "Moderate Thinness"
+                                classification = "Moderate Thinness - Maintain a balanced diet with sufficient protein, healthy fats, and complex carbohydrates, and engage in a combination of resistance training and cardiovascular exercises to improve overall fitness and build lean muscle."
                             }
                             if (displayBMI.toDouble() in 17.0..18.0) {
-                                classification = "Mild Thinness"
+                                classification = "Mild Thinness - Consume a balanced diet with adequate protein, healthy fats, and complex carbohydrates, while incorporating resistance training exercises to build lean muscle mass and improve overall body composition."
                             }
 
                             if (displayBMI.toDouble() in 18.0..25.0) {
-                                classification = "Normal"
+                                classification = "Normal - Continue maintaining a balanced diet with a variety of nutrients and incorporate a combination of aerobic exercises, strength training, and flexibility exercises for optimal health and fitness."
                             }
                             if (displayBMI.toDouble() in 25.0..30.0) {
-                                classification = "Overweight"
+                                classification = "Overweight - Adopt a calorie-controlled diet with emphasis on whole foods, portion control, and regular physical activity, including a mix of cardiovascular exercises and strength training, to achieve gradual and sustainable weight loss."
                             }
                             if (displayBMI.toDouble() in 30.0..40.0) {
-                                classification = "Obese"
+                                classification = "Obese - Follow a structured and supervised weight loss program tailored to individual needs, focusing on a balanced and reduced-calorie diet, along with regular exercise incorporating aerobic activities, strength training, and gradual progressions to facilitate weight loss and improve overall health."
                             }
 
 
