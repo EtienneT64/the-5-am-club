@@ -18,13 +18,13 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -90,7 +91,14 @@ fun WorkoutsScreen() {
         if (!pageBool) {
             Surface {
                 Scaffold(topBar = {
-                    TopAppBar(title = { Text("Workouts") })
+                    CenterAlignedTopAppBar(title = {
+                        Text(
+                            "Workouts",
+                            fontSize = 50.sp,
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    })
                 }, content = {
                     Column(
                         modifier = Modifier
@@ -155,8 +163,7 @@ fun WorkoutsScreen() {
                     // Structure of loaded workout
 
                     Column(
-                        modifier = Modifier
-                            .verticalScroll(rememberScrollState())
+                        modifier = Modifier.verticalScroll(rememberScrollState())
                     ) {
                         Text(text = "Workout name:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         Text(text = "$name")
@@ -172,8 +179,7 @@ fun WorkoutsScreen() {
                         AsyncImage(
                             model = "$image",
                             contentDescription = null,
-                            modifier = Modifier
-                                .padding(15.dp),
+                            modifier = Modifier.padding(15.dp),
                         )
 
 
@@ -183,6 +189,7 @@ fun WorkoutsScreen() {
         }
     }
 }
+
 
 @Composable
 fun WorkoutBlock(workout: Workout) {
