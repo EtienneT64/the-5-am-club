@@ -51,14 +51,19 @@ import java.util.TreeMap
 data class Workout(val title: String)
 
 val workoutsList = listOf(
-    Workout("Press-ups"), Workout("Step-Ups"), Workout("Superman")
+    Workout("Press-ups"),
+    Workout("Step-Ups"),
+    Workout("Superman"),
+    Workout("Walking-lunges"),
+    Workout("Squats")
 )
 
 data class DBWorkout(
     val WorkoutName: String? = null,
     val Reps: String? = null,
     val Benefits: String? = null,
-    val Steps: Map<String, String>? = null
+    val Steps: Map<String, String>? = null,
+    val Image: String? = null
 )
 
 class WorkoutsActivity : AppCompatActivity() {
@@ -122,6 +127,9 @@ fun WorkoutsScreen() {
                     var steps by remember {
                         mutableStateOf(mapOf("" to ""))
                     }
+                    var image by remember {
+                        mutableStateOf("")
+                    }
                     // Database connection
                     val workoutRef =
                         Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -136,6 +144,7 @@ fun WorkoutsScreen() {
                                     benefits = tempWorkout.Benefits.toString()
                                     reps = tempWorkout.Reps.toString()
                                     steps = tempWorkout.Steps!!
+                                    image = tempWorkout.Image.toString()
                                 }
                             }
 
@@ -148,7 +157,6 @@ fun WorkoutsScreen() {
                     Column(
                         modifier = Modifier
                             .verticalScroll(rememberScrollState())
-                            .padding(end = 56.dp)
                     ) {
                         Text(text = "Workout name:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         Text(text = "$name")
@@ -162,7 +170,7 @@ fun WorkoutsScreen() {
                             Text(text = "${step.key}: ${step.value}")
                         }
                         AsyncImage(
-                            model = "https://img.redbull.com/images/q_auto,f_auto/redbullcom/2019/03/26/2fce7d0a-e4a0-42f5-8d66-3a554ea8794a/press-up",
+                            model = "$image",
                             contentDescription = null,
                             modifier = Modifier
                                 .padding(15.dp),
