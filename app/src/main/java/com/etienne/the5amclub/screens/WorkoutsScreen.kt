@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
@@ -36,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.etienne.the5amclub.ui.theme.AppTheme
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -43,6 +46,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.TreeMap
+
 
 data class Workout(val title: String)
 
@@ -140,16 +144,31 @@ fun WorkoutsScreen() {
                             }
                         })
                     // Structure of loaded workout
-                    Text(text = "Workout name:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Text(text = "$name")
-                    Text(text = "Benefits:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Text(text = "Benefits: $benefits")
-                    Text(text = "Reps:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Text(text = "Reps: $reps")
-                    Text(text = "Steps:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    val sortedSteps = TreeMap(steps)
-                    sortedSteps.forEach { step ->
-                        Text(text = "${step.key}: ${step.value}")
+
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                            .padding(end = 56.dp)
+                    ) {
+                        Text(text = "Workout name:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "$name")
+                        Text(text = "Benefits:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "Benefits: $benefits")
+                        Text(text = "Reps:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        Text(text = "Reps: $reps")
+                        Text(text = "Steps:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        val sortedSteps = TreeMap(steps)
+                        sortedSteps.forEach { step ->
+                            Text(text = "${step.key}: ${step.value}")
+                        }
+                        AsyncImage(
+                            model = "https://img.redbull.com/images/q_auto,f_auto/redbullcom/2019/03/26/2fce7d0a-e4a0-42f5-8d66-3a554ea8794a/press-up",
+                            contentDescription = null,
+                            modifier = Modifier
+                                .padding(15.dp),
+                        )
+
+
                     }
                 }
             }
@@ -178,7 +197,7 @@ fun WorkoutBlock(workout: Workout) {
                         end.linkTo(icon.start)
                         width = androidx.constraintlayout.compose.Dimension.fillToConstraints
                     })
-                    // onClick event to load workout when eye icion is clicked
+                    // onClick event to load workout when eye icon is clicked
                     IconButton(onClick = {
                         viewModel.changeWorkout(workout.title.replace(" ", ""))
                         viewModel.setTrue()
@@ -207,6 +226,7 @@ class WorkoutsViewModel : ViewModel() {
     fun setTrue() {
         pageBool = true
     }
+
     fun changeWorkout(workout: String) {
         workoutName = workout
     }
