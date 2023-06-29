@@ -41,14 +41,8 @@ fun UtilitiesScreen() {
     AppTheme {
 
         Surface {
-            LazyColumn(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(25.dp)
-            ) {
-                item {
+
+
                     var inputAge by remember {
                         mutableStateOf("")
                     }
@@ -187,11 +181,11 @@ fun UtilitiesScreen() {
                             )
                         Text(
                             text = "Classification:",
-                            fontSize = 35.sp,
+                            fontSize = 30.sp,
                         )
                         Text(
                             text = classification,
-                            fontSize = 15.sp,
+                            fontSize = 10.sp,
                         )
 
 
@@ -216,28 +210,28 @@ fun UtilitiesScreen() {
 
                                     if (displayBMI.toDouble() < 16.0) {
                                         classification =
-                                            "Severe Thinness - we recommend you urgently up your calorie intake. Focus less on cardio and begin muscle building exercises like squats, push ups and press ups."
+                                            "Severe Thinness "
                                     }
                                     if (displayBMI.toDouble() in 16.0..17.0) {
                                         classification =
-                                            "Moderate Thinness - Maintain a balanced diet with sufficient protein, healthy fats, and complex carbohydrates, and engage in a combination of resistance training and cardiovascular exercises to improve overall fitness and build lean muscle."
+                                            "Moderate Thinness"
                                     }
                                     if (displayBMI.toDouble() in 17.0..18.0) {
                                         classification =
-                                            "Mild Thinness - Consume a balanced diet with adequate protein, healthy fats, and complex carbohydrates, while incorporating resistance training exercises to build lean muscle mass and improve overall body composition."
+                                            "Mild Thinness"
                                     }
 
                                     if (displayBMI.toDouble() in 18.0..25.0) {
                                         classification =
-                                            "Normal - Continue maintaining a balanced diet with a variety of nutrients and incorporate a combination of aerobic exercises, strength training, and flexibility exercises for optimal health and fitness."
+                                            "Normal"
                                     }
                                     if (displayBMI.toDouble() in 25.0..30.0) {
                                         classification =
-                                            "Overweight - Adopt a calorie-controlled diet with emphasis on whole foods, portion control, and regular physical activity, including a mix of cardiovascular exercises and strength training, to achieve gradual and sustainable weight loss."
+                                            "Overweight"
                                     }
                                     if (displayBMI.toDouble() in 30.0..40.0) {
                                         classification =
-                                            "Obese - Follow a structured and supervised weight loss program tailored to individual needs, focusing on a balanced and reduced-calorie diet, along with regular exercise incorporating aerobic activities, strength training, and gradual progressions to facilitate weight loss and improve overall health."
+                                            "Obese"
                                     }
 
 
@@ -255,12 +249,12 @@ fun UtilitiesScreen() {
                             }
                         }
                     }
-                }
+
             }
         }
     }
 
-}
+
 
 private fun BMICalculate(weight: Double, height: Double): String {
     var result = (weight / ((height / 100) * (height / 100)))
