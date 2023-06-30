@@ -84,6 +84,11 @@ fun HomeScreen() {
                     }
                     LazyColumn {
                         item {
+                            Column(modifier = Modifier.fillParentMaxSize()) {
+                                Schedule(events = sampleEvents)
+                            }
+                        }
+                        item {
                             Card(shape = MaterialTheme.shapes.small, modifier = Modifier
                                 .padding(
                                     bottom = 6.dp,
