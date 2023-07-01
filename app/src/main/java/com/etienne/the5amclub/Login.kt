@@ -95,7 +95,7 @@ class LogIn : ComponentActivity() {
                 }
 
                 fun userLogIn(email: String, password: String) {
-                    auth.signInWithEmailAndPassword(email, password)
+                    auth.signInWithEmailAndPassword(email, password)//Firebase object
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
                                 // Sign in success
