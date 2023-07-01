@@ -140,7 +140,6 @@ class LogIn : ComponentActivity() {
                         onClick = {
                             inputEmail = ""
                             inputPassword = ""
-                            Firebase.auth.signOut()
                             val intent = Intent(this@LogIn, Register::class.java)
                             startActivity(intent)
                         },
