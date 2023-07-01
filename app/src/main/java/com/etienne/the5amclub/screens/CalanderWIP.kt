@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -279,7 +278,7 @@ fun Schedule(
 ) {
     val dayWidth = 130.dp
     val hourHeight = 35.dp
-    val verticalScrollState = rememberScrollState()
+    //val verticalScrollState = rememberScrollState()
     val horizontalScrollState = rememberScrollState()
     var sidebarWidth by remember { mutableIntStateOf(0) }
 
@@ -299,7 +298,7 @@ fun Schedule(
             ScheduleSidebar(
                 hourHeight = hourHeight,
                 modifier = Modifier
-                    .verticalScroll(verticalScrollState)
+                    //.verticalScroll(verticalScrollState)
                     .onGloballyPositioned { sidebarWidth = it.size.width }
             )
             BasicSchedule(
@@ -311,7 +310,7 @@ fun Schedule(
                 hourHeight = hourHeight,
                 modifier = Modifier
                     .weight(1f)
-                    .verticalScroll(verticalScrollState)
+                    //.verticalScroll(verticalScrollState)
                     .horizontalScroll(horizontalScrollState)
             )
         }
@@ -385,7 +384,7 @@ fun BasicSchedule(
                     (ChronoUnit.MINUTES.between(
                         LocalTime.MIN,
                         LocalDateTime.parse(event.start).toLocalTime()
-                    ) - 300)
+                    ) - 120)
                 val eventY = (((eventOffsetMinutes / 60f) * hourHeight.toPx()) - 0).roundToInt()
                 val eventOffsetDays =
                     ChronoUnit.DAYS.between(minDate, LocalDateTime.parse(event.start).toLocalDate())
