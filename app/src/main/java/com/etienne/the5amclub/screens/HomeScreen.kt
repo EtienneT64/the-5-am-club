@@ -81,10 +81,6 @@ fun HomeScreen() {
                     mutableStateOf(true)
                 }
 
-
-
-
-
                 if (clubBool) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -111,8 +107,6 @@ fun HomeScreen() {
                                         .background(MaterialTheme.colorScheme.secondary)
                                 ) {
                                     val events = sharedUser.viewModelUser.value.Events
-
-
 
                                     Schedule(events = events)
                                 }
