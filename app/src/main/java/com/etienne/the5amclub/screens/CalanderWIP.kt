@@ -341,7 +341,7 @@ fun BasicSchedule(
         },
         modifier = modifier
             .drawBehind {
-                repeat(19) {
+                repeat(20) {
                     drawLine(
                         dividerColor,
                         start = Offset(0f, (it + 1) * hourHeight.toPx()),
@@ -352,9 +352,9 @@ fun BasicSchedule(
                 repeat(numDays) {
                     drawLine(
                         dividerColor,
-                        start = Offset((it + 1) * dayWidth.toPx(), 0f),
-                        end = Offset((it + 1) * dayWidth.toPx(), size.height),
-                        strokeWidth = 1.dp.toPx()
+                        start = Offset((it + 1) * dayWidth.toPx(), +50f),
+                        end = Offset((it + 1) * dayWidth.toPx(), size.height - 300f),
+                        strokeWidth = 2.dp.toPx()
                     )
                 }
             }
@@ -403,3 +403,4 @@ fun SchedulePreview() {
         Schedule(sampleEvents)
     }
 }
+
