@@ -17,6 +17,7 @@ import kotlinx.coroutines.tasks.await
 class UserViewModel : ViewModel() {
     var loading = MutableStateFlow(false)
     val viewModelUser: MutableState<UserModel> = mutableStateOf(UserModel())
+    val Quotes: MutableState<List<String>> = mutableStateOf(listOf(""))
 
     init {
         getUser()
@@ -29,11 +30,28 @@ class UserViewModel : ViewModel() {
             viewModelScope.launch(Dispatchers.IO) {
                 loading.value = false
                 viewModelUser.value = getCurrentRealtimeUser()
+                Quotes.value = GetQuotes() as List<String>
                 Log.d("Inside Coroutine", viewModelUser.value.userFullName.toString())
                 loading.value = true
             }
         } else {
             viewModelUser.value = UserModel()
+        }
+    }
+
+    private suspend fun GetQuotes(): Any? {
+        val quotesRef =
+            Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app")
+                .getReference("Quotes")
+
+        try {
+            val snapshot = quotesRef.get().await()
+
+            return snapshot.value
+
+        } catch (e: DatabaseException) {
+            Log.e("UserModelDatabase", e.toString())
+            return mapOf("" to "")
         }
     }
 
