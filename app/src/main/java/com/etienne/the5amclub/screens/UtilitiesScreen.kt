@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,217 +42,196 @@ fun UtilitiesScreen() {
         Surface {
 
 
-                    var inputAge by remember {
-                        mutableStateOf("")
-                    }
-                    var inputHeight by remember {
-                        mutableStateOf("")
-                    }
-                    var inputWeight by remember {
-                        mutableStateOf("")
-                    }
-                    var displayBMI by remember {
-                        mutableStateOf("")
-                    }
+            var inputAge by remember {
+                mutableStateOf("")
+            }
+            var inputHeight by remember {
+                mutableStateOf("")
+            }
+            var inputWeight by remember {
+                mutableStateOf("")
+            }
+            var displayBMI by remember {
+                mutableStateOf("")
+            }
 
-                    var classification by remember {
-                        mutableStateOf("")
-                    }
+            var classification by remember {
+                mutableStateOf("")
+            }
+            Box(
+                contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize()
+            )
+
+
+            {
+
+                Box(
+                    modifier = Modifier.size(900.dp, 900.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+
                     Box(
-                        contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize()
-                    )
-
-
-                    {
-
-                        Box(
-                            modifier = Modifier.size(900.dp, 900.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-
-                            Box(
-                                modifier = Modifier.size(300.dp, 500.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Row {
-
-                                }
-                                Row {
-                                    Text(
-                                        text = "Age",
-                                        fontSize = 30.sp,
-                                    )
-                                    TextField(
-                                        colors = TextFieldDefaults.textFieldColors(
-                                            focusedIndicatorColor = Color.Transparent,
-                                            unfocusedIndicatorColor = Color.Transparent
-                                        ),
-                                        value = inputAge,
-                                        shape = CircleShape,
-                                        onValueChange = { text -> inputAge = text },
-                                        modifier = Modifier
-                                            .padding(bottom = 180.dp)
-                                            .absolutePadding(70.dp)
-                                    )
-
-                                }
-                                Row {
-                                    Text(
-                                        text = "Height (cm)",
-                                        fontSize = 30.sp,
-                                    )
-                                    TextField(
-                                        colors = TextFieldDefaults.textFieldColors(
-                                            focusedIndicatorColor = Color.Transparent,
-                                            unfocusedIndicatorColor = Color.Transparent
-                                        ),
-                                        value = inputHeight,
-                                        shape = CircleShape,
-                                        onValueChange = { text -> inputHeight = text },
-                                        modifier = Modifier
-                                            .padding(bottom = 30.dp)
-                                            .absolutePadding(25.dp)
-                                    )
-
-
-                                }
-
-                                Row {
-                                    Text(
-                                        text = "Weight (kg)",
-                                        fontSize = 30.sp,
-                                        modifier = Modifier.padding(top = 120.dp)
-                                    )
-
-                                    TextField(
-                                        colors = TextFieldDefaults.textFieldColors(
-                                            focusedIndicatorColor = Color.Transparent,
-                                            unfocusedIndicatorColor = Color.Transparent
-                                        ),
-                                        value = inputWeight,
-                                        shape = CircleShape,
-                                        onValueChange = { text -> inputWeight = text },
-                                        modifier = Modifier
-                                            .padding(top = 120.dp)
-                                            .absolutePadding(25.dp)
-                                    )
-
-
-                                }
-                                Row {
-                                    Text(
-
-                                        text = "BMI",
-                                        fontSize = 40.sp,
-                                        modifier = Modifier.padding(top = 400.dp)
-                                    )
-                                    TextField(
-                                        colors = TextFieldDefaults.textFieldColors(
-                                            focusedIndicatorColor = Color.Transparent,
-                                            unfocusedIndicatorColor = Color.Transparent
-                                        ),
-                                        value = displayBMI,
-                                        shape = CircleShape,
-                                        onValueChange = { text -> displayBMI = text },
-                                        modifier = Modifier
-                                            .padding(top = 400.dp)
-                                            .absolutePadding(30.dp)
-                                    )
-
-                                }
-
-                            }
-                        }
-
-                    }
-
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxSize()
-
+                        modifier = Modifier.size(300.dp, 500.dp),
+                        contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "BMI Calculator",
-                            fontSize = 50.sp,
-                            textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.Bold,
+                        Row {
 
+                        }
+                        Row {
+                            Text(
+                                text = "Age",
+                                fontSize = 30.sp,
                             )
-                        Text(
-                            text = "Classification:",
-                            fontSize = 30.sp,
-                        )
-                        Text(
-                            text = classification,
-                            fontSize = 10.sp,
-                        )
+                            TextField(
+                                colors = TextFieldDefaults.textFieldColors(
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent
+                                ),
+                                value = inputAge,
+                                shape = CircleShape,
+                                onValueChange = { text -> inputAge = text },
+                                modifier = Modifier
+                                    .padding(bottom = 180.dp)
+                                    .absolutePadding(70.dp)
+                            )
 
+                        }
+                        Row {
+                            Text(
+                                text = "Height (cm)",
+                                fontSize = 30.sp,
+                            )
+                            TextField(
+                                colors = TextFieldDefaults.textFieldColors(
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent
+                                ),
+                                value = inputHeight,
+                                shape = CircleShape,
+                                onValueChange = { text -> inputHeight = text },
+                                modifier = Modifier
+                                    .padding(bottom = 30.dp)
+                                    .absolutePadding(25.dp)
+                            )
 
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 215.dp)
-                        )
-                        {
 
                         }
 
                         Row {
-                            Button(
-                                onClick = {
-                                    displayBMI =
-                                        BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
+                            Text(
+                                text = "Weight (kg)",
+                                fontSize = 30.sp,
+                                modifier = Modifier.padding(top = 120.dp)
+                            )
+
+                            TextField(
+                                colors = TextFieldDefaults.textFieldColors(
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent
+                                ),
+                                value = inputWeight,
+                                shape = CircleShape,
+                                onValueChange = { text -> inputWeight = text },
+                                modifier = Modifier
+                                    .padding(top = 120.dp)
+                                    .absolutePadding(25.dp)
+                            )
 
 
-
-                                    if (displayBMI.toDouble() < 16.0) {
-                                        classification =
-                                            "Severe Thinness "
-                                    }
-                                    if (displayBMI.toDouble() in 16.0..17.0) {
-                                        classification =
-                                            "Moderate Thinness"
-                                    }
-                                    if (displayBMI.toDouble() in 17.0..18.0) {
-                                        classification =
-                                            "Mild Thinness"
-                                    }
-
-                                    if (displayBMI.toDouble() in 18.0..25.0) {
-                                        classification =
-                                            "Normal"
-                                    }
-                                    if (displayBMI.toDouble() in 25.0..30.0) {
-                                        classification =
-                                            "Overweight"
-                                    }
-                                    if (displayBMI.toDouble() in 30.0..40.0) {
-                                        classification =
-                                            "Obese"
-                                    }
-
-
-                                }, modifier = Modifier
-                                    .offset(x = 0.dp, y = 20.dp)
-                                    .padding(top = 280.dp)
-
-                            ) {
-                                Text(
-                                    text = "CALCULATE BMI",
-                                    fontSize = 30.sp,
-                                    fontWeight = FontWeight.Bold
-
-                                )
-                            }
                         }
+                        Row {
+                            Text(
+
+                                text = "BMI",
+                                fontSize = 40.sp,
+                                modifier = Modifier.padding(top = 400.dp)
+                            )
+                            TextField(
+                                colors = TextFieldDefaults.textFieldColors(
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent
+                                ),
+                                value = displayBMI,
+                                shape = CircleShape,
+                                onValueChange = { text -> displayBMI = text },
+                                modifier = Modifier
+                                    .padding(top = 400.dp)
+                                    .absolutePadding(30.dp)
+                            )
+
+                        }
+
                     }
+                }
 
             }
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize()
+
+            ) {
+                Text(
+                    text = "BMI Calculator",
+                    fontSize = 50.sp,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
+
+                    )
+                Text(
+                    text = "Classification:",
+                    fontSize = 30.sp,
+                )
+                Text(
+                    text = classification,
+                    fontSize = 10.sp,
+                )
+
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 215.dp)
+                )
+                {
+
+                }
+
+                Row {
+                    Button(
+                        onClick = {
+                            displayBMI =
+                                BMICalculate(inputWeight.toDouble(), inputHeight.toDouble())
+
+                            classification = when (displayBMI.toDouble()) {
+                                in Double.MIN_VALUE..16.0 -> "Severe Thinness"
+                                in 16.0..17.0 -> "Moderate Thinness"
+                                in 17.0..18.0 -> "Mild Thinness"
+                                in 18.0..25.0 -> "Normal"
+                                in 25.0..30.0 -> "Overweight"
+                                in 30.0..40.0 -> "Obese"
+                                else -> ""
+                            }
+                        },
+                        modifier = Modifier
+                            .offset(x = 0.dp, y = 20.dp)
+                            .padding(top = 280.dp)
+                    ) {
+                        Text(
+                            text = "CALCULATE BMI",
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+            }
+
         }
     }
-
+}
 
 
 private fun BMICalculate(weight: Double, height: Double): String {
