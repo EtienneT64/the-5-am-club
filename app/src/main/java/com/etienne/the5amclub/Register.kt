@@ -223,10 +223,27 @@ class Register : ComponentActivity() {
                         ) {
                             Button(
                                 onClick = {
-                                    userCreation(inputEmail, inputPassword, inputFullName)
-                                    inputEmail = ""
-                                    inputPassword = ""
-                                    inputFullName = ""
+                                    val validate = Validate()
+                                    if (inputFullName.isNotBlank()) {
+                                        if (validate.validateEmail(inputEmail) and validate.validatePassword(
+                                                inputPassword
+                                            )
+                                        ) {
+                                            userCreation(inputEmail, inputPassword, inputFullName)
+                                            inputEmail = ""
+                                            inputPassword = ""
+                                            inputFullName = ""
+                                        } else {
+                                            Toast.makeText(
+                                                baseContext,
+                                                "Invalid name, email or password.",
+                                                Toast.LENGTH_SHORT,
+                                            ).show()
+                                            inputEmail = ""
+                                            inputPassword = ""
+                                            inputFullName = ""
+                                        }
+                                    }
                                 }, modifier = Modifier.size(width = 250.dp, height = 50.dp)
                             ) {
                                 Text(text = "Sign Up", fontSize = 25.sp)

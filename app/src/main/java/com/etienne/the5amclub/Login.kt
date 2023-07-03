@@ -95,7 +95,7 @@ class LogIn : ComponentActivity() {
                 }
 
                 fun userLogIn(email: String, password: String) {
-                    auth.signInWithEmailAndPassword(email, password)
+                    auth.signInWithEmailAndPassword(email, password)//Firebase object
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
                                 // Sign in success
@@ -140,7 +140,6 @@ class LogIn : ComponentActivity() {
                         onClick = {
                             inputEmail = ""
                             inputPassword = ""
-                            Firebase.auth.signOut()
                             val intent = Intent(this@LogIn, Register::class.java)
                             startActivity(intent)
                         },
@@ -184,8 +183,7 @@ class LogIn : ComponentActivity() {
                             trailingIcon = {
                                 IconButton(onClick = {
                                     showPassword.value = !showPassword.value
-                                }
-                                ) {
+                                }) {
                                     Icon(
                                         tint = MaterialTheme.colorScheme.inverseSurface,
                                         imageVector = Icons.Default.Visibility,
@@ -205,9 +203,24 @@ class LogIn : ComponentActivity() {
                         )
                         Button(
                             onClick = {
-                                userLogIn(inputEmail, inputPassword)
-                                inputEmail = ""
-                                inputPassword = ""
+                                val validate = Validate()
+                                if (validate.validateEmail(inputEmail) and validate.validatePassword(
+                                        inputPassword
+                                    )
+                                ) {
+                                    userLogIn(inputEmail, inputPassword)
+                                    inputEmail = ""
+                                    inputPassword = ""
+                                } else {
+                                    Toast.makeText(
+                                        baseContext,
+                                        "Invalid email or password.",
+                                        Toast.LENGTH_SHORT,
+                                    ).show()
+                                    inputEmail = ""
+                                    inputPassword = ""
+                                }
+
                             }, modifier = Modifier.size(width = 200.dp, height = 50.dp)
                         ) {
                             Text(

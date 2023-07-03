@@ -19,8 +19,6 @@ class MainActivity : ComponentActivity() {
         FirebaseApp.initializeApp(this)
         val user = Firebase.auth.currentUser
 
-        //Firebase.auth.signOut()
-
         //If the user object is null, that means there is no current user, so we should point them to signup or login
         if (user != null) {
             Log.d("OnCreation", user.email.toString())
