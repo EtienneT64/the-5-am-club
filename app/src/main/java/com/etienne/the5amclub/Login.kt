@@ -8,9 +8,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -128,7 +130,7 @@ class LogIn : ComponentActivity() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .offset(x = 0.dp, y = 150.dp),
+                        .offset(x = 0.dp, y = 130.dp),
                 ) {
                     Text(
                         text = "Login",
@@ -148,6 +150,9 @@ class LogIn : ComponentActivity() {
                         Text(text = "Sign Up Here")
                     }
                 }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
                 Column(
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center,
@@ -192,6 +197,9 @@ class LogIn : ComponentActivity() {
                                 }
                             })
                     }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
                     //Column to center the register button
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,

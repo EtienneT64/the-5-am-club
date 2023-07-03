@@ -6,10 +6,17 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
@@ -29,6 +36,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -145,7 +155,7 @@ class Register : ComponentActivity() {
                         .padding(top = 100.dp),
                 ) {
                     Text(
-                        text = "Create New", fontSize = 50.sp, modifier = Modifier.padding(20.dp)
+                        text = "Create New", fontSize = 50.sp, modifier = Modifier.padding(5.dp)
                     )
 
                     Text(
@@ -166,6 +176,8 @@ class Register : ComponentActivity() {
                         Text(text = "LOG IN HERE")
                     }
                 }
+
+                Spacer(modifier = Modifier.height(100.dp))
 
                 Column(
                     horizontalAlignment = Alignment.Start,
@@ -217,6 +229,9 @@ class Register : ComponentActivity() {
                                     )
                                 }
                             })
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.fillMaxWidth()
@@ -264,5 +279,60 @@ class Register : ComponentActivity() {
                 RegisterScreen()
             }
         }
+    }
+}
+
+//Testing
+@Composable
+fun Boxer() {
+    Box(
+        //horizontalAlignment = Alignment.CenterHorizontally,
+        //verticalArrangement = Arrangement.Top,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+            var quote by remember {
+                mutableStateOf("")
+            }
+
+
+            quote = "The only bad workout is the one that didn't happen. Keep pushing forward."
+
+
+            androidx.compose.material.Text(
+                text = quote,
+                fontSize = androidx.compose.material.MaterialTheme.typography.h6.fontSize,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.weight(3f)
+            )
+
+
+            Image(
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = "null",
+                alignment = Alignment.TopEnd,
+
+                // crop the image if it's not a square
+                modifier = Modifier
+
+                    .size(90.dp) // clip to the circle shape
+                    .border(10.dp, Color.Gray)
+                    .offset(
+                        x = 0.dp,
+                        y = 0.dp
+                    )// add a border (optional)
+                    .padding(bottom = 0.dp)
+                    .weight(1f, fill = false)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BoxerPreview() {
+    AppTheme {
+        Boxer()
     }
 }
