@@ -1,15 +1,19 @@
 package com.etienne.the5amclub.screens
 
 
+import android.icu.util.Calendar
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -27,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -88,17 +93,74 @@ fun HomeScreen() {
                         modifier = Modifier.fillMaxSize()
 //            .background(brush2),
                     ) {
-                        Row {
-                            Text(
-                                fontSize = 50.sp,
-                                textAlign = TextAlign.Center,
-                                text = "Clubs",
-                                fontWeight = FontWeight.Bold,
-//                color = Color.White
-                            )
-
-                        }
                         LazyColumn {
+                            item {
+                                Box(
+                                    //horizontalAlignment = Alignment.CenterHorizontally,
+                                    //verticalArrangement = Arrangement.Top,
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Row(
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        modifier = Modifier.fillMaxWidth()
+                                    ) {
+                                        var quote by remember {
+                                            mutableStateOf("")
+                                        }
+
+                                        val weekOfYear = Calendar.WEEK_OF_YEAR
+                                        val quotes = sharedUser.Quotes.value
+                                        quote = quotes[weekOfYear]
+
+
+                                        androidx.compose.material.Text(
+                                            text = quote,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color.White,
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier.weight(3f)
+                                        )
+
+
+
+
+                                        Image(
+                                            painter = painterResource(id = R.drawable.logo),
+                                            contentDescription = "null",
+                                            alignment = Alignment.TopEnd,
+
+                                            // crop the image if it's not a square
+                                            modifier = Modifier
+
+                                                .size(90.dp) // clip to the circle shape
+                                                .border(5.dp, Color.Gray)
+                                                .offset(
+                                                    x = 0.dp,
+                                                    y = 0.dp
+                                                )// add a border (optional)
+                                                .padding(bottom = 0.dp)
+                                                .weight(1f, fill = false)
+                                        )
+                                    }
+                                }
+
+
+                            }
+                            item {
+                                Row(
+                                    horizontalArrangement = Arrangement.Center,
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text(
+                                        fontSize = 50.sp,
+                                        textAlign = TextAlign.Center,
+                                        text = "Calendar",
+                                        fontWeight = FontWeight.Bold,
+                                    )
+
+                                }
+                            }
                             //This is the calendar
                             item {
                                 Column(
@@ -112,16 +174,31 @@ fun HomeScreen() {
                                 }
                             }
                             item {
-                                Card(shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
+                                Row(
+                                    horizontalArrangement = Arrangement.Center,
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text(
+                                        fontSize = 50.sp,
+                                        textAlign = TextAlign.Center,
+                                        text = "Clubs",
+                                        fontWeight = FontWeight.Bold,
                                     )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        sharedEvents.changeEvent("RunningClub")
-                                        clubBool = false
-                                    }
+
+                                }
+                            }
+                            item {
+                                Card(shape = MaterialTheme.shapes.small,
+                                    modifier = Modifier
+                                        .padding(
+                                            bottom = 6.dp,
+                                            top = 6.dp,
+                                        )
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            sharedEvents.changeEvent("RunningClub")
+                                            clubBool = false
+                                        }
 
 
                                 ) {
@@ -158,16 +235,17 @@ fun HomeScreen() {
                                 }
                             }
                             item {
-                                Card(shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        sharedEvents.changeEvent("WalkingClub")
-                                        clubBool = false
-                                    }
+                                Card(shape = MaterialTheme.shapes.small,
+                                    modifier = Modifier
+                                        .padding(
+                                            bottom = 6.dp,
+                                            top = 6.dp,
+                                        )
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            sharedEvents.changeEvent("WalkingClub")
+                                            clubBool = false
+                                        }
 
 
                                 ) {
@@ -204,16 +282,17 @@ fun HomeScreen() {
                                 }
                             }
                             item {
-                                Card(shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        sharedEvents.changeEvent("HikingClub")
-                                        clubBool = false
-                                    }
+                                Card(shape = MaterialTheme.shapes.small,
+                                    modifier = Modifier
+                                        .padding(
+                                            bottom = 6.dp,
+                                            top = 6.dp,
+                                        )
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            sharedEvents.changeEvent("HikingClub")
+                                            clubBool = false
+                                        }
 
 
                                 ) {
@@ -250,16 +329,17 @@ fun HomeScreen() {
                                 }
                             }
                             item {
-                                Card(shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        sharedEvents.changeEvent("Success Club")
-                                        clubBool = false
-                                    }
+                                Card(shape = MaterialTheme.shapes.small,
+                                    modifier = Modifier
+                                        .padding(
+                                            bottom = 6.dp,
+                                            top = 6.dp,
+                                        )
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            sharedEvents.changeEvent("Success Club")
+                                            clubBool = false
+                                        }
 
 
                                 ) {
@@ -296,16 +376,17 @@ fun HomeScreen() {
                                 }
                             }
                             item {
-                                Card(shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        sharedEvents.changeEvent("FivesFootballClub")
-                                        clubBool = false
-                                    }
+                                Card(shape = MaterialTheme.shapes.small,
+                                    modifier = Modifier
+                                        .padding(
+                                            bottom = 6.dp,
+                                            top = 6.dp,
+                                        )
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            sharedEvents.changeEvent("FivesFootballClub")
+                                            clubBool = false
+                                        }
 
 
                                 ) {
@@ -342,16 +423,17 @@ fun HomeScreen() {
                                 }
                             }
                             item {
-                                Card(shape = MaterialTheme.shapes.small, modifier = Modifier
-                                    .padding(
-                                        bottom = 6.dp,
-                                        top = 6.dp,
-                                    )
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        sharedEvents.changeEvent("PadelClub")
-                                        clubBool = false
-                                    }
+                                Card(shape = MaterialTheme.shapes.small,
+                                    modifier = Modifier
+                                        .padding(
+                                            bottom = 6.dp,
+                                            top = 6.dp,
+                                        )
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            sharedEvents.changeEvent("PadelClub")
+                                            clubBool = false
+                                        }
 
 
                                 ) {
@@ -527,9 +609,7 @@ fun ClubBlock() {
 
                     Button(modifier = Modifier.size(width = 200.dp, height = 50.dp), onClick = {
                         subscribeToEvent(
-                            sharedEvents.eventName,
-                            times,
-                            sharedUser.viewModelUser.value.userID!!
+                            sharedEvents.eventName, times, sharedUser.viewModelUser.value.userID!!
                         )
                     }) {
                         Text(
@@ -546,16 +626,13 @@ fun ClubBlock() {
 }
 
 fun subscribeToEvent(
-    eventName: String,
-    startTimes: Map<String, String>,
-    userID: String
+    eventName: String, startTimes: Map<String, String>, userID: String
 ) {//This is the function that adds events to the user realtime database
     val userRef =
         Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app")
             .getReference("users")
 
-    userRef.child(userID).child("Attending")
-        .setValue(mapOf(eventName to "True"))
+    userRef.child(userID).child("Attending").setValue(mapOf(eventName to "True"))
 
 
     if (eventName == "SuccessClub") {
@@ -634,11 +711,6 @@ fun getDateFromString(startTime: String): Int {
     }
 }
 
-@Composable
-@Preview
-fun ClubPreview() {
-    ClubBlock()
-}
 
 
 class EventsViewModel : ViewModel() {
@@ -653,4 +725,23 @@ class EventsViewModel : ViewModel() {
         eventName = event
     }
 
+}
+
+@Composable
+fun Rower() {
+    Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+        Text(
+            fontSize = 50.sp,
+            textAlign = TextAlign.Center,
+            text = "Calendar",
+            fontWeight = FontWeight.Bold,
+        )
+
+    }
+}
+
+@Composable
+@Preview
+fun RowerPreview() {
+    Rower()
 }
