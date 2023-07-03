@@ -180,7 +180,6 @@ fun ProfileScreen(
                                     .absolutePadding(25.dp)
                             )
                         }
-
                         Row {
 
                             TextField(
