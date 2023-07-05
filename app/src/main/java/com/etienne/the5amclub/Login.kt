@@ -130,7 +130,7 @@ class LogIn : ComponentActivity() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .offset(x = 0.dp, y = 130.dp),
+                        .offset(x = 0.dp, y = 100.dp),
                 ) {
                     Text(
                         text = "Login",
@@ -151,7 +151,7 @@ class LogIn : ComponentActivity() {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(50.dp))
 
                 Column(
                     horizontalAlignment = Alignment.Start,
@@ -198,7 +198,7 @@ class LogIn : ComponentActivity() {
                             })
                     }
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(30.dp))
 
                     //Column to center the register button
                     Column(

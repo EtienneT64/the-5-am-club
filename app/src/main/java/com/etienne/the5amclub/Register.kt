@@ -77,13 +77,6 @@ class Register : ComponentActivity() {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 // Sign in success
-                val user = Firebase.auth.currentUser
-                val token = user?.getIdToken(false)
-                Toast.makeText(
-                    baseContext,
-                    "$token!",
-                    Toast.LENGTH_SHORT,
-                ).show()
 
                 addUserToRealtime(firstname, email)
 
@@ -152,7 +145,7 @@ class Register : ComponentActivity() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = 100.dp),
+                        .padding(top = 70.dp),
                 ) {
                     Text(
                         text = "Create New", fontSize = 50.sp, modifier = Modifier.padding(5.dp)
@@ -177,7 +170,7 @@ class Register : ComponentActivity() {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(100.dp))
+                Spacer(modifier = Modifier.height(500.dp))
 
                 Column(
                     horizontalAlignment = Alignment.Start,
@@ -230,7 +223,7 @@ class Register : ComponentActivity() {
                                 }
                             })
 
-                        Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.height(40.dp))
 
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
