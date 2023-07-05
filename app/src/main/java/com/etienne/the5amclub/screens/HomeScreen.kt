@@ -109,7 +109,8 @@ fun HomeScreen() {
                                         }
 
                                         val weekOfYear = Calendar.WEEK_OF_YEAR
-                                        val quotes = sharedUser.Quotes.value
+                                        val quotes = sharedUser.quotes.value
+                                        Log.d("Quotes", quotes.toString())
                                         quote = quotes[weekOfYear]
 
 
@@ -168,7 +169,10 @@ fun HomeScreen() {
                                         .fillParentMaxSize()
                                         .background(MaterialTheme.colorScheme.secondary)
                                 ) {
-                                    val events = sharedUser.viewModelUser.value.Events
+                                    var events: Map<String, Event>? = mapOf()
+                                    if (sharedUser.viewModelUser.value.Events != null) {
+                                        events = sharedUser.viewModelUser.value.Events
+                                    }
 
                                     Schedule(events = events)
                                 }
@@ -497,6 +501,15 @@ fun ClubBlock() {
     val sharedEvents = viewModel<EventsViewModel>()
     val sharedUser = viewModel<UserViewModel>()
 
+    var refreshScreen by remember {
+        mutableStateOf(false)
+    }
+
+    if (refreshScreen) {
+        HomeScreen()
+        refreshScreen = false
+    }
+
     AppTheme {
         Surface {
             LazyColumn(
@@ -588,12 +601,15 @@ fun ClubBlock() {
                     Text(text = "Location:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                     Text(text = "$location")
 
-                    if (name == "Success Club") {
+                    if ((name == "Success Club") or (name == "Hiking Club")) {
                         Text(text = "When:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         Text(text = "$whentime")
                     } else {
 
                         Text(text = "Start Times:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        times.values.forEach { time ->
+                            Text(text = time)
+                        }
                         //TODO
                     }
 
@@ -608,9 +624,14 @@ fun ClubBlock() {
                 }*/
 
                     Button(modifier = Modifier.size(width = 200.dp, height = 50.dp), onClick = {
+                        Log.d("eventName", sharedEvents.eventName)
+                        Log.d("StartTimes", times.toString())
+                        Log.d("userID", sharedUser.viewModelUser.value.userID!!)
+
                         subscribeToEvent(
                             sharedEvents.eventName, times, sharedUser.viewModelUser.value.userID!!
                         )
+                        refreshScreen = true
                     }) {
                         Text(
                             text = "Subscribe", fontSize = 25.sp
@@ -631,9 +652,13 @@ fun subscribeToEvent(
     val userRef =
         Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app")
             .getReference("users")
+    val colors = listOf(0xFFAFBBF2, 0xFF1B998B, 0xFFF4BFDB, 0xFF6DD3CE)
 
     userRef.child(userID).child("Attending").setValue(mapOf(eventName to "True"))
 
+    Log.d("eventName", eventName)
+    Log.d("StartTimes", startTimes.toString())
+    Log.d("userID", userID)
 
     if (eventName == "SuccessClub") {
         val obvious = true
@@ -644,6 +669,8 @@ fun subscribeToEvent(
         time = time.withSecond(0)
         time = time.withNano(0)
 
+        val rnds = (0..3).random()
+        val color = colors[rnds]
 
         for (stringTime: String in startTimes.values) {
             //Calculates the amt days between the start time weekday and the next correct weekday
@@ -661,9 +688,10 @@ fun subscribeToEvent(
             var startTime = time.toString()
             var endTime = time.plusHours(2).toString()
 
+
             //First event calculated with the right day
             var event = Event(
-                eventName, 0xFFAFBBF2, startTime, endTime
+                eventName, color, startTime, endTime
             )
             userRef.child(userID).child("Events").child(startTime).setValue(event)
 
@@ -674,7 +702,7 @@ fun subscribeToEvent(
 
                 //Subsequent events every week for a year
                 event = Event(
-                    eventName, 0xFFAFBBF2, startTime, endTime
+                    eventName, color, startTime, endTime
                 )
                 userRef.child(userID).child("Events").child(startTime).setValue(event)
             }
@@ -691,7 +719,6 @@ fun subscribeToEvent(
 
     //TODO Hard Code Success club
 
-    //userRef.child(userID).child("Events").child(startTime).setValue(event)
 }
 
 fun getDateFromString(startTime: String): Int {
