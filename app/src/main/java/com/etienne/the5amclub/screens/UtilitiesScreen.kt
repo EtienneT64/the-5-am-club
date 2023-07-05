@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -178,13 +180,15 @@ fun UtilitiesScreen() {
                     fontWeight = FontWeight.Bold,
 
                     )
+
+                Spacer(modifier = Modifier.height(50.dp))
                 Text(
                     text = "Classification:",
                     fontSize = 30.sp,
                 )
                 Text(
                     text = classification,
-                    fontSize = 10.sp,
+                    fontSize = 23.sp,
                 )
 
 
@@ -217,7 +221,7 @@ fun UtilitiesScreen() {
                         },
                         modifier = Modifier
                             .offset(x = 0.dp, y = 20.dp)
-                            .padding(top = 280.dp)
+                            .padding(top = 180.dp)
                     ) {
                         Text(
                             text = "CALCULATE BMI",

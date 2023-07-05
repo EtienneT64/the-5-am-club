@@ -12,7 +12,7 @@ import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: UserViewModel by viewModels()
+   val viewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,7 +25,9 @@ class MainActivity : ComponentActivity() {
 
             //Calling the viewModel like this initializes the view model
             //On initial is when it pulls from the database
+
             viewModel
+            viewModel.loadUserAndQuotes()
 
             setContent {
                 MainScreen()
@@ -36,4 +38,5 @@ class MainActivity : ComponentActivity() {
             startActivity(intent)
         }
     }
+
 }

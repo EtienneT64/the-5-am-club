@@ -166,7 +166,7 @@ fun WorkoutsScreen() {
                         modifier = Modifier.verticalScroll(rememberScrollState())
                     ) {
                         Text(text = "Workout name:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                        Text(text = "$name")
+                        Text(text = name)
                         Text(text = "Benefits:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         Text(text = "Benefits: $benefits")
                         Text(text = "Reps:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
@@ -177,7 +177,7 @@ fun WorkoutsScreen() {
                             Text(text = "${step.key}: ${step.value}")
                         }
                         AsyncImage(
-                            model = "$image",
+                            model = image,
                             contentDescription = null,
                             modifier = Modifier.padding(15.dp),
                         )

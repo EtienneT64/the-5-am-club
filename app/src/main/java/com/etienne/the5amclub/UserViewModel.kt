@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseException
+import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
@@ -14,12 +15,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
+
 class UserViewModel : ViewModel() {
     var loading = MutableStateFlow(false)
     val viewModelUser: MutableState<UserModel> = mutableStateOf(UserModel())
-    val Quotes: MutableState<List<String>> = mutableStateOf(listOf(""))
+    val quotes: MutableState<List<String>> = mutableStateOf(mutableListOf(""))
 
     init {
+        if (!loading.value) {
+            Log.d("ViewModel Start", "Initialising User Viewmodel")
+            getUser()
+        }
+    }
+
+    fun loadUserAndQuotes() {
         getUser()
     }
 
@@ -30,7 +39,7 @@ class UserViewModel : ViewModel() {
             viewModelScope.launch(Dispatchers.IO) {
                 loading.value = false
                 viewModelUser.value = getCurrentRealtimeUser()
-                Quotes.value = GetQuotes() as List<String>
+                quotes.value = getQuotes()
                 Log.d("Inside Coroutine", viewModelUser.value.userFullName.toString())
                 loading.value = true
             }
@@ -39,19 +48,30 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    private suspend fun GetQuotes(): Any? {
+    private suspend fun getQuotes(): List<String> {
         val quotesRef =
-            Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app")
+            Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
                 .getReference("Quotes")
 
         try {
+            Log.d("Grabbing Quotes", "Hello1")
             val snapshot = quotesRef.get().await()
+            val tempList: MutableList<String> = mutableListOf("")
 
-            return snapshot.value
+
+            val t: GenericTypeIndicator<List<String>> =
+                object : GenericTypeIndicator<List<String>>() {}
+
+            val mapper: List<String> = snapshot.getValue(t)!!
+
+            Log.d("Grabbing Quotes", "Hello2")
+
+            return mapper
+
 
         } catch (e: DatabaseException) {
-            Log.e("UserModelDatabase", e.toString())
-            return mapOf("" to "")
+            Log.e("QuotesDatabase", e.toString())
+            return listOf("")
         }
     }
 
@@ -60,7 +80,7 @@ class UserViewModel : ViewModel() {
         val user = Firebase.auth.currentUser
         val email = user!!.email.toString()
         val userRef =
-            Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app")
+            Firebase.database("https://the5amclub-dfb7f-default-rtdb.europe-west1.firebasedatabase.app/")
                 .getReference("users")
 
         try {
